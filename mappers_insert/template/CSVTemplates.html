@@ -1,0 +1,246 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+{% include 'WarningAlert.html' %}
+{% include 'SuccessAlert.html' %}
+<section class="global-section">
+    <div class="container py-4 card">
+      <div class="row card-body">
+        {% if screen_type == 'create_view' %}
+
+            <div class="col-lg-7 mx-auto d-flex justify-content-center flex-column">
+            <h3 class="text-center">Create Templates</h3>
+            {% if template %}
+            <form role="form" action="/batches/csv/template/edit/{{template.TemplateID}}/" id="contact-form" method="post" autocomplete="off">
+            {% else %}
+            <form role="form" action="/batches/csv/template/create/" id="contact-form" method="post" autocomplete="off">
+            {% endif %}
+              {% csrf_token %}
+                <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                    <label>Feed</label><span class="text-danger"> *</span>
+                    <div class="input-group mb-4">
+                      <select class="form-control" placeholder="" required name="feed_id" value="{{data.FeedID.FeedID}}">
+                        <option value="">--Choose Feed Name--</option>
+                        {% for feed in feeds %}
+                          <option value="{{feed.FeedID}}" 
+                          {% if error %}
+                            {% if feed.FeedID|stringformat:'s' == template.FeedID|stringformat:'s' %} selected {% endif %}                    
+                          {% else %}
+                            {% if feed.FeedID|stringformat:'s' == template.FeedID.FeedID|stringformat:'s' %} selected {% endif %}                          
+                          {% endif %}
+                          >{{feed.Name}}</option>
+                        {% endfor %}
+                    </select>
+                    </div>
+                    </div>
+                    
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                    <label>Feed Category</label><span class="text-danger"> *</span>
+                    <div class="input-group mb-4">
+                      <select class="form-control" placeholder="" name="feed_category_id" required>
+                        <option value="">--Choose Feed Category--</option>
+                        {% for category in categories %}
+                          <option value="{{category.FeedCategoryID}}" 
+                          {% if error %}
+                            {% if category.FeedCategoryID|stringformat:'s' == template.FeedCategoryID|stringformat:'s' %} selected {% endif %}                    
+                          {% else %}
+                            {% if category.FeedCategoryID|stringformat:'s' == template.FeedCategoryID.FeedCategoryID|stringformat:'s' %} selected {% endif %}                          
+                          {% endif %}
+                          >{{category.Name}}</option>
+                        {% endfor %}
+                    </select>
+                    </div>
+                    </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <label class="control-label">Validation Type</label><span class="text-danger"> *</span>
+                    <select class="form-control" placeholder="" name="ValidationType" required>
+                      <option value="">--select validation type--</option>
+                    {% for type in validation_types %}
+                    <option value="{{type.0}}" 
+                      {% if type.0|stringformat:'s' == template.ValidationType|stringformat:'s' %} selected {% endif %}                          
+                    >{{type.1}}</option>
+                    {% endfor %}
+                  </select>
+                  </div>
+                </div>
+                <br/>
+                <div class="form-group mb-4">
+                    <label>Template Headers</label><a data-bs-toggle="modal" data-bs-target="#exampleModal" class="badge badge-sm badge-primary" id="template" onclick="templatePreview(this)">preview</a>
+                    <textarea name="template_headers" class="form-control" id="template_headers" rows="4">{{template.TemplateHeaders}}</textarea>
+                    <p class="text-danger text-sm">Note: Headers names should be seperated by comma(',')</p>
+                </div>
+                <div class="form-group mb-4">
+                    <label>Report Headers</label><a data-bs-toggle="modal" data-bs-target="#exampleModal" class="badge badge-sm badge-primary" id="report" onclick="templatePreview(this)">preview</a>
+                    <textarea name="report_headers" class="form-control" id="export_headers" rows="4">{{template.ReportHeaders}}</textarea>
+                    <p class="text-danger text-sm">Note: Headers names should be seperated by comma(',')</p>
+                </div>
+                {% if template %}
+                  <div class="form-group mb-4">
+                    <label>Status</label>
+                    <select class="form-control" name="status">
+                      <option value="0" {% if template.Active == False %} selected {% endif %}>Inactive</option>
+                      <option value="1" {% if template.Active == True %} selected {% endif %}>Active</option>
+                    </select>
+                </div>
+                {% endif %}
+                
+                    <div class="col-md-12">
+                    <button type="submit" class="btn bg-gradient-dark w-100"> {% if template %} <i class="fa fa-pencil"></i>  Update {% else %} <i class="fa fa-plus"></i>  Create{% endif %}</button>
+                    </div>
+                </div>
+                </div>
+            </form>
+            </div>
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="exampleModalLabel">CSV Preview</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table table-sm table-bordered text-center" id="headers_table">
+                        <thead class="bg-gradient-success text-white">
+                        </thead>
+                        <tbody>
+                            
+                        </tbody>
+                      </table>
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+            
+
+            {% else %}
+            <div class="col-lg-7 mx-auto d-flex justify-content-center flex-column">
+              <h3 class="text-center">Report Templates</h3>
+            </div>
+            <a href="/batches/csv/template/create/view/"><button type="button" class="btn bg-gradient-info me-2 w-10 create-btn"><i
+              class="fa fa-plus-circle"></i> Create</button></a>
+            <div class="table-responsive">
+              <table class="datatable table align-items-center mb-0 text-center" id="template-table">
+                <thead>
+                  <tr>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">S.No</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Feed Name</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Feed Category</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for template in templates %}
+                      <tr data-url="/batches/csv/template/edit/view/{{template.TemplateID}}" class="pointer template-edit">
+                        <td class="text-secondary text-xs font-weight-bold">{{forloop.counter}}</td>
+                        <td class="text-secondary text-xs font-weight-bold">{{template.FeedID.Name}}</td>
+                        <td class="text-secondary text-xs font-weight-bold">{{template.FeedCategoryID.Name}}</td>
+                        <td class="text-secondary text-xs font-weight-bold">{% if template.Active == True %} <i class="fa fa-check-circle text-success text-xs font-weight-bold"> </i>{% else %} <i class="fa fa-times-circle text-danger text-xs font-weight-bold"></i> {% endif %}</td>
+                        <td>
+                              {% if template.TemplateHeaders %}
+                            <a class="text-primary" href="/batches/csv/template/download/{{template.TemplateID}}"><i class="fa fa-download"></i></a>
+                          {% endif %}
+                            
+                          
+                          
+                        </td>
+                      </tr>
+                    {% endfor %}
+                </tbody>
+                <!-- <tfoot>
+                  <tr>
+                    <td colspan="5" class="tfoot_class text-danger">
+                      <br/>
+                        <a class="btn btn-sm btn-outline-primary mb-0" href="/batches"><i class="fa fa-angle-double-right"></i><span> View more</span></a>
+                    </td>
+                  </tr>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <i class="fa fa-forward"></i><p> View more</p>
+                    </div>
+                  </div>
+                </tfoot> -->
+              </table>
+            </div>
+            {% endif %}
+      </div>
+    </div>
+  </section>
+
+  <script>
+    $(document).ready(function(){
+      var params = new URLSearchParams(window.location.search);
+      var success = params.get("success")
+      var update = params.get("update")
+      if (success || update) {
+          $("#success-popup").modal("show")
+          if(success){
+            $("#success-message").text("Template is created successfully..!")
+          }
+          else{
+            $("#success-message").text("Template is updated successfully..!")
+          }
+      }
+      console.log('{{message}}')
+      var message = "{{message|safe}}"
+      var error = "{{error|safe}}".split(".") 
+      console.log(error)
+      if(message){
+        $("#warning-popup").modal("show")
+        $("#warning-message").text(message)
+      }
+      // if(error.length != 0){
+      //   console.log(error)
+      // }
+        $('.datatable').DataTable();
+
+
+        $('#template-table tbody').on('click', 'tr td', function(){
+          console.log("sdfsdf")
+          var url = $(this).closest('tr').attr("data-url")
+           window.location.replace(url)
+        })
+    })
+
+    function templatePreview(badgeObj){
+        var id = $(badgeObj).attr('id')
+        var template = $('#template_headers').val()
+        var report = $('#export_headers').val()
+        console.log(id)
+        $("#headers_table thead").html("")
+        $("#headers_table tbody").html("")
+        var data = []
+        if(id == 'template' && template != '')
+        {
+            data = template.split(',')
+        }
+        else{
+            data = report.split(',')
+        }
+        var thead = ""
+        var td = ""
+        for(var i=0;i<data.length;i++){
+          thead+="<th>"+data[i]+"</th>"
+          td+="<td></td>"
+        }
+        var tr=""
+        var range = 20
+        for(var i=0;i<range;i++){
+          tr+="<tr>"+td+"</tr>"
+        }
+        $("#headers_table thead").append(thead)
+        $("#headers_table tbody").append(tr)
+    }
+
+  </script>
+
+{% endblock %}

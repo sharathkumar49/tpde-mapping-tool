@@ -1,0 +1,19 @@
+<div class="modal fade" id="column-popup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-danger text-center" id="exampleModalLabel">Choose the columns to update</h5>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    {% for header in data.headers %}
+                        <div class="col-md-2 p-2 m-1 text-center column-box">{{header}}</div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between border-none">
+                <button type="button" class="btn btn-danger text-uppercase" id="column-confirm-btn" style="float: right;">confirm</button>
+            </div>
+        </div>
+    </div>
+</div>

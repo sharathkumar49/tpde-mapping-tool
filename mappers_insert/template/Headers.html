@@ -1,0 +1,12 @@
+<tr>
+    {% if screen_type == 'bulk_update' %}
+        <th><input type="checkbox" id="select-all"></th>
+    {% endif %}
+    {% if data.update_type == 'remove' and screen_type == 'update' %}
+        <th class="text-danger"></th>
+    {% endif %}
+    
+    {% for header in data.headers %}
+        <th class="text-uppercase text-center text-white text-xxs font-weight-bolder opacity-7">{{header}}</th>
+    {% endfor %}
+</tr>

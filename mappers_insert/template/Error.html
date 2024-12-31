@@ -1,0 +1,20 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+<section class="global-section">
+    <div class="container py-4 card">
+        <div class="row card-body">
+            <div class="col-lg-7 mx-auto d-flex justify-content-center flex-column">
+                <h1>
+                    <span>500</span> <br />
+                    Internal server error
+                </h1>
+                <p>Please check with administrator.. <b>reference id : </b>{{ref}}</p>
+                <p class="info">
+                    <a href="/dashboard/" class="btn btn-outline-primary">Back to home</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

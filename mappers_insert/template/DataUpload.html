@@ -1,0 +1,60 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+{% include 'WarningAlert.html' %}
+{% include 'SuccessAlert.html' %}
+<section class="global-section">
+    <div class="container py-4 card">
+      <div class="row card-body">
+            <div class="col-lg-12 mx-auto d-flex justify-content-center flex-column">
+            <h3 class="text-center">Data Upload</h3>
+            <form role="form" id="data-form" method="post" action="/batches/data/upload/" autocomplete="off" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Feed Name</label><span class="text-danger"> *</span>
+                        <div class="input-group mb-4">
+                            <select class="form-control" placeholder="" name="FeedID" required>
+                                <option value="">--Choose Feed--</option>
+                                {% for fd in feed %}
+                                    <option value="{{fd.FeedID}}">{{fd.Name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Feed Category</label><span class="text-danger"> *</span>
+                        <div class="input-group mb-4">
+                            <select class="form-control" placeholder="" name="FeedCategoryID" required>
+                                <option value="">--Choose Feed Category--</option>
+                                {% for fc in category %}
+                                    <option value="{{fc.FeedCategoryID}}">{{fc.Name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Choose File</label><span class="text-danger"> * (only .csv files)</span>
+                        <div class="input-group mb-4">
+                            <input class="form-control" placeholder="" aria-label="First Name..." type="file" id="file_data" name="data_file" required title="Invalid file format.">
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <br/>
+                        <button type="submit" class="btn bg-gradient-dark w-100"><i class="fa fa-upload"></i>  Upload</button>
+                        </div>
+                    
+                </div>
+                    
+                </div>
+            </form>
+            </div>
+            
+      </div>
+    </div>
+  </section>
+  
+
+  <script src="{% static 'js/custom/data_upload.js' %}"></script>
+{% endblock %}

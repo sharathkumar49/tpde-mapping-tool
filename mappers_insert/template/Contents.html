@@ -1,0 +1,14 @@
+
+{% for dt in data.data %}
+    <tr id="{{dt.MappingID}}">
+        {% if screen_type == 'bulk_update' %}
+            <td><input type="checkbox" class="select-record"></td>
+        {% endif %}
+        {% if data.update_type == 'remove' and screen_type == 'update' %}
+            <td class="text-danger text-center text-xs font-weight-bolder opacity-7"><i class="fa fa-times-circle"></i> Inactive</td>
+        {% endif %}
+        {% for header in data.headers %}
+            <td class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7" id="{{dt.MappingID}}">{{dt|get_item:header}}</td>
+        {% endfor %}
+    </tr>
+{% endfor %}

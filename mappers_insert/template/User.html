@@ -1,0 +1,201 @@
+{% extends 'header.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'WarningAlert.html' %}
+{% include 'SuccessAlert.html' %}
+<section class="global-section">
+  <div class="container py-4 card">
+    <div class="row card-body">
+      {% if screen_type == 'create_view' %}
+      <div class="col-lg-7 mx-auto d-flex justify-content-center flex-column">
+        {% if not user_profile %} 
+        <h3 class="text-center">User Create</h3>
+          <form role="form" id="user-create" method="POST" autocomplete="off" action="/masters/user/create/">
+        {% else %}    
+        <h3 class="text-center">User Edit</h3>
+        <form role="form" id="user-create" method="POST" autocomplete="off" action="/masters/user/edit/{{user_profile.User.id}}/">
+          <input type="hidden" value="{{user_profile.User.id}}" name="user_id">
+        {% endif %}   
+          {% csrf_token %}
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6">
+                <label>First Name</label><span class="text-danger"> *</span>
+                <div class="input-group mb-4">
+                  <input class="form-control" placeholder="" name="first_name" type="text" value="{{user_profile.User.first_name}}" required>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label>Last Name</label><span class="text-danger"> *</span>
+                <div class="input-group mb-4">
+                  <input class="form-control" placeholder="" name="last_name" type="text" value="{{user_profile.User.last_name}}" required>
+                </div>
+              </div>
+            </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <label>Email</label>
+                  <div class="input-group mb-4">
+                    <input class="form-control" placeholder="" name="email" type="email" value="{{user_profile.User.email}}">
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="row">
+                <div class="col-md-12">
+                  <label>User Name</label><span class="text-danger"> *</span>
+                  <div class="input-group mb-4">
+                    <input class="form-control" placeholder="" name="username" type="text" value="{{user_data.username}}" required>
+                  </div>
+                </div>
+  
+              </div> -->
+              <div class="row">
+                <div class="col-md-12">
+                  <label>Role</label><span class="text-danger"> *</span>
+                  <div class="input-group mb-4">
+                    <!-- <input class="form-control" placeholder="" name="username" type="text" value="{{user_data.username}}" required> -->
+                    <select class="form-control" name="role" name="">
+                        <option value="">--Select Role--</option>
+                        <option value="admin" {% if user_profile.Role|stringformat:'s' == 'admin'|stringformat:'s' %} selected {% endif %} >ADMIN</option>
+                        <option value="data_engineer" {% if user_profile.Role|stringformat:'s' == 'data_engineer'|stringformat:'s' %} selected {% endif %}>DATA ENGINEER</option>
+                        <option value="analyst" {% if user_profile.Role|stringformat:'s' == 'analyst'|stringformat:'s' %} selected {% endif %}>ANALYST</option>
+                    </select>
+                  </div>
+                </div>
+  
+              </div>
+              <!-- <div class="row">
+                <div class="col-md-12">
+                  <label>Password</label><span class="text-danger"> *</span>
+                  <div class="input-group mb-4">
+                    <input class="form-control" placeholder="" name="password" type="password" value="{{user_data.password}}" required>
+                  </div>
+                </div>
+  
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <label>Confirm Password</label><span class="text-danger"> *</span>
+                  <div class="input-group mb-4">
+                    <input class="form-control" placeholder="" name="confirm_password" type="password" value="{{user_data.confirm_password}}" required>
+                  </div>
+                </div>
+  
+              </div>
+              <div id="message">
+                Password should contain below characters..
+                <ul>
+                    <li>Atlease one Uppercase letter</li>
+                    <li>Atlease one Lowercase letter</li>
+                    <li>Atlease one numeric value</li>
+                </ul>
+                
+              </div> -->
+            <!-- <div class="row">
+              <div class="col-md-12">
+                <label>Feed Category</label><span class="text-danger"> *</span>
+                <div class="input-group mb-4">
+                  <select class="form-control" name="category_id" required=""
+                    value="{{feed.FeedCategoryID.FeedCategoryID}}">
+                    <option value="">--Choose Feed Category--</option>
+                    {% for category in category %}
+                    <option value="{{category.FeedCategoryID}}" {% if category.FeedCategoryID == feed.FeedCategoryID.FeedCategoryID %}selected="selected" {% endif %}>
+                      {{category.Name|capfirst}}
+                    </option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+            </div> -->
+         
+            <div class="col-md-12">
+              <button type="submit" class="btn bg-gradient-dark w-100" id="submit-btn">{% if user_profile %} <i class="fa fa-edit"></i> Update {% else %} <i class="fa fa-plus"></i> Create {% endif %}</button>
+            </div>
+          </div>
+      </div>
+      </form>
+    </div>
+    {% elif screen_type == 'profile_view' %}
+    <div class="col-lg-7 mx-auto d-flex justify-content-center flex-column">
+        <h3 class="text-center">User Profile</h3>
+      </div>
+      <div>
+        <img src="{% static 'img/logos/user.jpg' %}" alt="User image" width="200" height="200">
+      </div>
+      
+      <h3>{{profile.User.first_name}} {{profile.User.last_name}}</h3>
+      <div class="row">
+        <div class="col-md-2">
+            <label class="control-label">First Name</label>
+        </div>
+        <div class="col-md-4">
+            <label class="control-label text-secondary">{{profile.User.first_name}}</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+            <label class="control-label">Last Name</label>
+        </div>
+        <div class="col-md-4">
+            <label class="control-label text-secondary">{{profile.User.last_name}}</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+            <label class="control-label">User Name</label>
+        </div>
+        <div class="col-md-4">
+            <label class="control-label text-secondary">{{profile.User.username}}</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+            <label class="control-label">Role</label>
+        </div>
+        <div class="col-md-4">
+            <label class="control-label text-secondary">{{profile.role_display_value}}</label>
+        </div>
+      </div>
+    {% else %}
+    <div class="col-lg-7 mx-auto d-flex justify-content-center flex-column">
+      <h3 class="text-center">Users</h3>
+
+    </div>
+
+    <a href="/masters/user/create/form/"><button type="button" class="btn bg-gradient-info me-2 w-10 create-btn"><i
+          class="fa fa-plus-circle"></i> Create</button></a>
+    <table class="table align-items-center mb-0 text-center datatable" id="feed-table">
+      <thead>
+        <tr>
+          <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 w-20">S.No</th>
+          <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 w-40">Name</th>
+          <th class="text-uppercase content-left text-secondary text-xxs font-weight-bolder opacity-7 ps-2 w-20">Role
+            </th>
+     
+          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-20"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for us in user %}
+          <tr>
+            <td class="text-secondary text-xs font-weight-bold text-left">{{forloop.counter}}</td>
+            <td class="text-secondary  text-xs font-weight-bold">{{us.User.first_name}} {{us.User.last_name}}</td>
+            <td class="text-secondary content-left text-xs font-weight-bold">{{us.role_display_value}}</td>
+            <td class="text-secondary text-xs font-weight-bold text-center"><a href="/masters/user/edit/view/{{us.User.id}}/" class="btn btn-sm btn-secondary"><i class="fa fa-edit"></i></a></td>
+        </tr>
+        {% endfor %}
+        
+      </tbody>
+
+    </table>
+
+    {% endif %}
+  </div>
+  </div>
+</section>
+
+<script src="{% static 'js/custom/user.js' %}"></script>
+
+{% endblock %}

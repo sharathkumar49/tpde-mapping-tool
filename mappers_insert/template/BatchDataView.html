@@ -1,0 +1,171 @@
+<div class="modal fade" id="reject-popup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-danger text-center" id="exampleModalLabel">Enter Reason</h5>
+          </div>
+          <div class="modal-body">
+            <form action="/batches/batch/record/update/" method="POST" id="reject-confirm-form">
+              {% csrf_token %}
+              <input type="hidden" name="action" value="reject">
+              <input type="hidden" name="batch_id" value="{{batch.BatchID}}">
+              <div class="row">
+                <div class="col-md-12">
+                  <textarea class="form-control" placeholder="Enter the reason for rejection" required name="reason"></textarea>
+                </div>
+              </div>            
+            </form>
+          </div>
+          <div class="modal-footer justify-content-between">
+            <button type="button" id="popup-close" class="btn bg-gradient-dark" data-bs-dismiss="modal">Close</button>
+            <button class="btn btn-danger" style="float: right;" type="button" id="reject-btn">Reject</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-7 mx-auto d-flex justify-content-center flex-column">
+      <h3 class="text-center">Data View</h3>
+    </div>
+    <h6>Batch No     : {{batch.BatchNo}}</h6>
+    <h6>Batch Status : <span class="badge badge-sm {% if batch.Status == '0' %} badge-secondary {% elif batch.Status == '1' %} badge-primary {% elif batch.Status == '2' %} badge-danger {% else %} badge-success {% endif %}">{{batch.status_display_value}}</span></h6>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="btn-group" role="group" aria-label="Basic example" style="float: right;">
+          <form action="/batches/batch/validate/{{batch.BatchID}}/" method="POST" id="validate-form">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="validate">
+            <input type="hidden" name="FeedID" value="{{batch.FeedID}}">
+            <input type="hidden" name="FeedCategoryID" value="{{batch.FeedCategoryID}}">
+            <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Validate" id="validate-btn"><i class="fa fa-refresh"></i></button>
+            </form>
+          {% if batch.Status == '0' %}
+            <form action="/batches/batch/record/update/" method="POST" id="approve-form">
+              {% csrf_token %}
+              <input type="hidden" name="action" value="approve">
+              <input type="hidden" name="batch_id" value="{{batch.BatchID}}">
+              <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Approve" id="approve-btn"><i class="fa fa-check"></i></button>
+              </form>
+            <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Reject" id="reject"><i class="fa fa-times" ></i></button>
+          {% endif %}
+        </div>
+      </div>
+
+
+    <input type="hidden" value="{{batch.Configuration.ValidationType}}" id="validation_type">
+    <div class="table-responsive">
+      <table class="table align-items-center mb-0 text-center datatable" id="batch_record_view">
+        <thead class="bg-secondary">
+          <tr class="text-white">
+            {% if batch.Configuration.ValidationType == 'nt_acc_mapping' %}
+              <th class="text-uppercase text-center text-white text-xxs font-weight-bolder opacity-7">Client ID</th>
+              <!-- <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7 ps-2">MappingID</th> -->
+              <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">Consolidation</th>
+              <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">NTAccountNumber
+              </th>
+              <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">NTAccountName
+              </th>
+              <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">CSecurityId</th>
+              <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">NSecNum</th>
+              <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">IsSMA</th>
+              <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">UploadValuationsDaily
+              </th>
+              <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">UploadTransactionsDaily</th>
+              <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">UploadValuationsMonthly</th>
+            {% else %}
+              <th class="text-uppercase text-center text-white text-xxs font-weight-bolder opacity-7">Client ID</th>
+              <!-- <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7 ps-2">MappingID</th> -->
+              <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">Burgiss Portfolio
+                Name</th>
+              <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">Upload Valuations
+              </th>
+              <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">Upload Transactions
+              </th>
+              <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">Investment Name</th>
+              <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">Investment GUID</th>
+              <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">Investment ID</th>
+              <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">User Portfolio ID
+              </th>
+              <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">Portfolio Code</th>
+              <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">Portfolio Name</th>
+            {% endif %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for data in data %}
+          <tr {% if data.Error %} class="text-danger" {% else %} class="text-secondary" {% endif %}
+            data-url="/batches/record/detail/view/{{batch.BatchID}}/{{data.MappingID}}/" onclick="DetailView(this)"
+            style="cursor:pointer">
+            {% if batch.Configuration.ValidationType == 'nt_acc_mapping' %}
+              <td class="align-middle text-right text-sm">
+                <span class="text-xs font-weight-bold">{{data.ClientID}}</span>
+              </td>
+              <!-- <td class="align-middle text-right text-sm">
+                          <span class="text-secondary text-xs font-weight-bold">{{data.MappingID}}</span>
+                        </td> -->
+              <td class="text-sm">
+                <span class="text-xs font-weight-bold text-left ml-0">{{data.Consolidation}}</span>
+              </td>
+              <td class="align-middle text-right text-sm">
+                <span class="text-xs font-weight-bold">{{data.NTAccountNumber }}</span>
+              </td>
+              <td class="align-middle text-right text-sm">
+                <span class=" text-xs font-weight-bold">{{data.NTAccountName}}</span>
+              </td>
+              <td class="align-middle text-left text-sm">
+                <span class="text-xs font-weight-bold">{{data.CSecurityId}}</span>
+              </td>
+              <td class="align-middle text-right text-sm">
+                <span class="text-xs font-weight-bold">{{data.NSecNum}}</span>
+              </td>
+              <td class="align-middle text-right text-sm">
+                <span class="text-xs font-weight-bold">{{data.IsSMA}}</span>
+              </td>
+              <td class="align-middle text-right text-sm">
+                <span class="text-xs font-weight-bold">{{data.UploadValuationsDaily}}</span>
+              </td>
+              <td class="align-middle text-right text-sm">
+                <span class="text-xs font-weight-bold">{{data.UploadTransactionsDaily}}</span>
+              </td>
+              <td class="align-middle text-left text-sm">
+                <span class="text-xs font-weight-bold">{{data.UploadValuationsMonthly}}</span>
+              </td>
+              {% else %}
+              <td class="align-middle text-right text-sm">
+                <span class="text-xs font-weight-bold">{{data.ClientID}}</span>
+              </td>
+              <!-- <td class="align-middle text-right text-sm">
+                          <span class="text-secondary text-xs font-weight-bold">{{data.MappingID}}</span>
+                        </td> -->
+              <td class="text-sm">
+                <span class="text-xs font-weight-bold text-left ml-0">{{data.BurgissPortfolioName}}</span>
+              </td>
+              <td class="align-middle text-right text-sm">
+                <span class="text-xs font-weight-bold">{{data.UploadValuations }}</span>
+              </td>
+              <td class="align-middle text-right text-sm">
+                <span class=" text-xs font-weight-bold">{{data.UploadTransactions}}</span>
+              </td>
+              <td class="align-middle text-left text-sm">
+                <span class="text-xs font-weight-bold">{{data.InvestmentName}}</span>
+              </td>
+              <td class="align-middle text-right text-sm">
+                <span class="text-xs font-weight-bold">{{data.InvestmentGUID}}</span>
+              </td>
+              <td class="align-middle text-right text-sm">
+                <span class="text-xs font-weight-bold">{{data.InvestmentID}}</span>
+              </td>
+              <td class="align-middle text-right text-sm">
+                <span class="text-xs font-weight-bold">{{data.UserPortfolioID}}</span>
+              </td>
+              <td class="align-middle text-right text-sm">
+                <span class="text-xs font-weight-bold">{{data.PortfolioCode}}</span>
+              </td>
+              <td class="align-middle text-left text-sm">
+                <span class="text-xs font-weight-bold">{{data.PortfolioName}}</span>
+              </td>
+              {% endif %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>

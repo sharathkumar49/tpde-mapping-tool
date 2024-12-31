@@ -1,0 +1,253 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+<section class="global-section">
+    <div class="container py-4 card">
+      <div class="row card-body">
+        {% if screen_type == 'create_view' %}
+
+            <div class="col-lg-7 mx-auto d-flex justify-content-center flex-column">
+            <h3 class="text-center">Create Templates</h3>
+            <form role="form" action="/batches/csv/template/create/" id="contact-form" method="post" autocomplete="off">
+              {% csrf_token %}
+                <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                    <label>Feed</label><span class="text-danger"> *</span>
+                    <div class="input-group mb-4">
+                      <select class="form-control" placeholder="" required name="feed_id">
+                        <option value="">--Choose Feed Name--</option>
+                        {% for feed in feeds %}
+                          <option value="{{feed.FeedID}}">{{feed.Name}}</option>
+                        {% endfor %}
+                    </select>
+                    </div>
+                    </div>
+                    
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                    <label>Feed Category</label><span class="text-danger"> *</span>
+                    <div class="input-group mb-4">
+                      <select class="form-control" placeholder="" name="feed_category_id" required>
+                        <option value="">--Choose Feed Category--</option>
+                        {% for category in categories %}
+                          <option value="{{category.FeedCategoryID}}">{{category.Name}}</option>
+                        {% endfor %}
+                    </select>
+                    </div>
+                    </div>
+                </div>
+                <div class="form-group mb-4">
+                    <label>Template Headers</label><span class="text-danger"> *</span> <a data-bs-toggle="modal" data-bs-target="#exampleModal" class="badge badge-sm badge-primary" id="template" onclick="templatePreview(this)">preview</a>
+                    <textarea name="template_headers" class="form-control" id="template_headers" rows="4"></textarea>
+                    <p class="text-danger text-sm">Note: Headers names should be seperated by comma(',')</p>
+                </div>
+                <div class="form-group mb-4">
+                    <label>Report Headers</label><span class="text-danger"> *</span> <a data-bs-toggle="modal" data-bs-target="#exampleModal" class="badge badge-sm badge-primary" id="report" onclick="templatePreview(this)">preview</a>
+                    <textarea name="report_headers" class="form-control" id="export_headers" rows="4"></textarea>
+                    <p class="text-danger text-sm">Note: Headers names should be seperated by comma(',')</p>
+                </div>
+                    <div class="col-md-12">
+                    <button type="submit" class="btn bg-gradient-dark w-100"><i class="fa fa-plus"></i>  Create</button>
+                    </div>
+                </div>
+                </div>
+            </form>
+            </div>
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="exampleModalLabel">CSV Preview</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="datatable table table-sm table-bordered text-center" id="headers_table">
+                        <thead class="bg-gradient-success text-white">
+                        </thead>
+                        <tbody>
+                            
+                        </tbody>
+                      </table>
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+            {% else %}
+            <div class="col-lg-12 mx-auto d-flex justify-content-center flex-column">
+              <h3 class="text-center">Reports</h3>
+              <form role="form" id="contact-form" class="mt-3" method="post" autocomplete="off" action="/batches/data/search/">
+                {% csrf_token %}
+                  <div>
+                  <div class="row">
+                    
+                      <div class="col-md-3">
+                      <label>Batch No</label>
+                      <div class="input-group mb-4">
+                        <input type="text" class="form-control">
+                      </div>
+                      </div>
+                      
+                      <div class="col-md-3">
+                          <label>Feed Name</label>
+                          <div class="input-group mb-4">
+                              <select class="form-control" placeholder="" name="feed_id">
+                                  <option value="">--Choose Feed Name--</option>
+                                  {% for feed in feeds %}
+                                      <option value="{{feed.FeedID}}" {% if feed.FeedID|stringformat:'s' == feed_id|stringformat:'s' %} selected {% endif %}>{{feed.Name}}</option>
+                                  {% endfor %}
+                              </select>
+                          </div>
+                      </div>
+                      <div class="col-md-3">
+                          <label>Feed Category</label>
+                          <div class="input-group mb-4">
+                              <select class="form-control" placeholder="" name="feed_category_id">
+                                  <option value="">--Choose Feed Category--</option>
+                                  {% for category in categories %}
+                                    <option value="{{category.FeedCategoryID}}" {% if category.FeedCategoryID|stringformat:'s' == feed_category_id|stringformat:'s' %} selected {% endif %}>{{category.Name}}</option>
+                                  {% endfor %}
+                              </select>
+                          </div>
+                      </div>
+                  
+                      <div class="col-md-3">
+                          <br/>
+                          <button type="submit" class="btn bg-gradient-dark w-50"><i class="fa fa-search"></i> Search</button>
+                          </div>
+                  </div>
+                 
+                
+            </div>
+                  </div>
+                  </div>
+              </form>
+              <br/>
+              <h6 class="text-center">Templates</h6>
+              {{data}}
+              <div class="table-responsive">
+                  <table class="table align-items-center mb-0 text-center" id="template-table">
+                    <thead>
+                      <tr>
+                        <th class="text-secondary text-uppercase text-center text-xxs font-weight-bolder opacity-7">Client ID</th>
+            <!-- <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7 ps-2">MappingID</th> -->
+            <th class="text-secondary text-center text-uppercase text-xxs font-weight-bolder opacity-7">Burgiss Portfolio
+              Name</th>
+            <th class="text-secondary text-center text-uppercase text-xxs font-weight-bolder opacity-7">Upload Valuations
+            </th>
+            <th class="text-secondary text-center text-uppercase text-xxs font-weight-bolder opacity-7">Upload Transactions
+            </th>
+            <th class="text-secondary text-center text-uppercase text-xxs font-weight-bolder opacity-7">Investment Name</th>
+            <th class="text-secondary text-center text-uppercase text-xxs font-weight-bolder opacity-7">Investment GUID</th>
+            <th class="text-secondary text-center text-uppercase text-xxs font-weight-bolder opacity-7">Investment ID</th>
+            <th class="text-secondary text-center text-uppercase text-xxs font-weight-bolder opacity-7">User Portfolio ID
+            </th>
+            <th class="text-secondary text-center text-uppercase text-xxs font-weight-bolder opacity-7">Portfolio Code</th>
+            <th class="text-secondary text-center text-uppercase text-xxs font-weight-bolder opacity-7">Portfolio Name</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {% for data in data %}
+                        <tr {% if data.Error %} class="text-danger" {% else %} class="text-secondary" {% endif %}
+                          data-url="/batches/record/detail/view/{{data.MappingID}}/" onclick="DetailView(this)"
+                          style="cursor:pointer">
+                          <td class="align-middle text-right text-sm">
+                            <span class="text-xs font-weight-bold">{{data.ClientID}}</span>
+                          </td>
+                          <!-- <td class="align-middle text-right text-sm">
+                                      <span class="text-secondary text-xs font-weight-bold">{{data.MappingID}}</span>
+                                    </td> -->
+                          <td class="text-sm">
+                            <span class="text-xs font-weight-bold text-left ml-0">{{data.BurgissPortfolioName}}</span>
+                          </td>
+                          <td class="align-middle text-right text-sm">
+                            <span class="text-xs font-weight-bold">{{data.UploadValuations }}</span>
+                          </td>
+                          <td class="align-middle text-right text-sm">
+                            <span class=" text-xs font-weight-bold">{{data.UploadTransactions}}</span>
+                          </td>
+                          <td class="align-middle text-left text-sm">
+                            <span class="text-xs font-weight-bold">{{data.InvestmentName}}</span>
+                          </td>
+                          <td class="align-middle text-right text-sm">
+                            <span class="text-xs font-weight-bold">{{data.InvestmentGUID}}</span>
+                          </td>
+                          <td class="align-middle text-right text-sm">
+                            <span class="text-xs font-weight-bold">{{data.InvestmentID}}</span>
+                          </td>
+                          <td class="align-middle text-right text-sm">
+                            <span class="text-xs font-weight-bold">{{data.UserPortfolioID}}</span>
+                          </td>
+                          <td class="align-middle text-right text-sm">
+                            <span class="text-xs font-weight-bold">{{data.PortfolioCode}}</span>
+                          </td>
+                          <td class="align-middle text-left text-sm">
+                            <span class="text-xs font-weight-bold">{{data.PortfolioName}}</span>
+                          </td>
+                          </tr>
+                        {% endfor %}
+                    </tbody>
+                    <!-- <tfoot>
+                      <tr>
+                        <td colspan="5" class="tfoot_class text-danger">
+                          <br/>
+                            <a class="btn btn-sm btn-outline-primary mb-0" href="/batches"><i class="fa fa-angle-double-right"></i><span> View more</span></a>
+                        </td>
+                      </tr>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <i class="fa fa-forward"></i><p> View more</p>
+                        </div>
+                      </div>
+                    </tfoot> -->
+                  </table>
+                </div>
+              </div>
+
+            
+            {% endif %}
+      </div>
+    </div>
+  </section>
+
+  <script>
+    $(document).ready(function(){
+        $('.datatable').DataTable();
+    })
+
+    function templatePreview(badgeObj){
+        var id = $(badgeObj).attr('id')
+        var template = $('#template_headers').val()
+        var report = $('#export_headers').val()
+        $("#headers_table thead").html("")
+        $("#headers_table tbody").html("")
+        var data = []
+        if(id == 'template' && template != '')
+        {
+            data = template.split(',')
+        }
+        else{
+            data = report.split(',')
+        }
+        var thead = ""
+        var td = ""
+        for(var i=0;i<data.length;i++){
+          thead+="<th>"+data[i]+"</th>"
+          td+="<td></td>"
+        }
+        var tr=""
+        var range = 20
+        for(var i=0;i<range;i++){
+          tr+="<tr>"+td+"</tr>"
+        }
+        $("#headers_table thead").append(thead)
+        $("#headers_table tbody").append(tr)
+    }
+
+  </script>
+
+{% endblock %}

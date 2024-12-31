@@ -1,0 +1,89 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+{% include 'SuccessAlert.html' %}
+{% include 'ConfirmAlert.html' %}
+<section class="global-section">
+  <div class="container py-4 card">
+    <div class="row card-body">
+      {% if screen_type == 'create_view' %}
+      <div class="col-lg-7 mx-auto d-flex justify-content-center flex-column">
+        <h3 class="text-center">Feed Create</h3>
+        <form role="form" id="contact-form" method="post" autocomplete="off">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-12">
+                <label>Name</label><span class="text-danger"> *</span>
+                <div class="input-group mb-4">
+                  <input class="form-control" placeholder="" aria-label="First Name..." type="text">
+                </div>
+              </div>
+            </div>
+            <div class="form-group mb-4">
+              <label>Description</label>
+              <textarea name="message" class="form-control" id="Description" rows="4"></textarea>
+            </div>
+
+            <div class="col-md-12">
+              <button type="submit" class="btn bg-gradient-dark w-100"><i class="fa fa-plus"></i> Create</button>
+            </div>
+          </div>
+      </div>
+      </form>
+    </div>
+    {% elif screen_type == 'data_view' %}
+        {% include 'BatchDataView.html' %}
+    {% elif screen_type == 'detail_view' %}
+        {% include 'BatchDetailView.html' %}
+    {% else %}
+        <div class="col-lg-7 mx-auto d-flex justify-content-center flex-column">
+          <h3 class="text-center">Batches</h3>
+        </div>
+        <form action="/batches/batch/search/filter/" method="POST" id="status_filter_form">
+          {% csrf_token %}
+          <input type="hidden" name="status" value="0" id="status_value">
+          <input type="hidden" id="status" value="{{status}}">
+        </form>
+        <div class="table-responsive">
+          <table class="table align-items-center mb-0 text-center datatable" id="batch-table">
+            <thead class="bg-secondary">
+              <tr>
+                <th class="text-uppercase text-center text-white text-xxs font-weight-bolder opacity-7 w-10">S.No</th>
+                <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7 ps-2 w-20">Batch No.</th>
+                <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7 w-10">Record Count</th>
+                <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7 w-40">Status</th>
+                <!-- <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7 w-20"></th> -->
+              </tr>
+            </thead>
+            <tbody>
+              {% for batch in batches %}
+              <tr data-url="/batches/record/view/{{batch.BatchID}}/" onclick="DetailView(this)"
+              style="cursor:pointer">
+                <td>
+                  <span class="text-secondary text-xs font-weight-bold text-center">{{forloop.counter}}</span>
+                </td>
+                <td>
+                  <span class="text-secondary text-xs font-weight-bold">{{batch.BatchNo}}</span>
+                </td>
+                <td class="align-middle text-right text-sm">
+                  <span class="text-secondary text-xs font-weight-bold">{{batch.RecordCount}}</span>
+                </td>
+                <td class="align-middle text-center">
+                  <span class="text-secondary text-xs font-weight-bold text-right">{{batch.status_display_value}}</span>
+                </td>
+                <!-- <td class="align-middle text-center">
+                  <a href="/batches/record/view/{{batch.BatchID}}/"
+                    class="btn btn-sm btn-outline-primary btn-round mb-0 me-1 mt-2 mt-md-0"><i class="fa fa-eye"></i>
+                    Edit</a>
+                </td> -->
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          </div>
+    {% endif %}
+  </div>
+  </div>
+</section>
+<script src="{% static 'js/custom/batch.js' %}" type="text/javascript"></script>
+{% endblock %}

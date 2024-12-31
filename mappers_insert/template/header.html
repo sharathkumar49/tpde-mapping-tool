@@ -1,0 +1,1226 @@
+
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+
+<head>
+
+
+
+
+
+
+{% load static %}
+
+
+
+<meta charset="utf-8" />
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
+
+<!-- <link rel="apple-touch-icon" sizes="76x76" href="{% static 'img/apple-icon.png' %}"> -->
+<!-- <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}"> -->
+
+<title>
+  MSCI
+</title>
+
+
+
+<!--     Fonts and icons     -->
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+
+<!-- Nucleo Icons -->
+<link href="{% static 'css/nucleo-icons.css' %}" rel="stylesheet" type="text/css"/>
+<link href="{% static 'css/nucleo-svg.css' %}" rel="stylesheet" />
+
+<!-- Font Awesome Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script> -->
+<link href="{% static 'css/nucleo-svg.css' %}" rel="stylesheet" />
+
+<!-- CSS Files -->
+
+<link rel="stylesheet" href="{% static 'css/bootstrap-multiselect.css' %}" type="text/css"/>
+
+
+<link id="pagestyle" href="{% static 'css/soft-design-system.css' %}" rel="stylesheet" />
+<link id="pagestyle1" href="{% static 'css/style.css' %}" rel="stylesheet" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.6/css/dataTables.dataTables.css" />
+  
+<script src="https://cdn.datatables.net/2.0.6/js/dataTables.js"></script>
+
+<!-- Nepcha Analytics (nepcha.com) -->
+<!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
+<!-- <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script> -->
+</head>
+<body class="index-page">
+  <input type="hidden" id="screen_type" value="{{screen_type}}">
+  <div class="container position-sticky z-index-sticky top-0"><div class="row"><div class="col-12">
+    <nav class="navbar navbar-expand-lg  blur blur-rounded top-0 z-index-fixed shadow position-absolute my-3 py-2 start-0 end-0 mx-4" >
+      <div class="container-fluid px-0">
+        <a class=" text-secondary navbar-brand font-weight-bolder ms-sm-3" href="/dashboard/" rel="tooltip" title="Designed and Coded by Creative Tim" data-placement="bottom" target="_blank">
+          <img class="max-width-100 w-100 position-relative z-index-2" src="{% static 'img/logos/msci_logo_black.jpg' %}">
+        </a>
+        <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon mt-2">
+            <span class="navbar-toggler-bar bar1"></span>
+            <span class="navbar-toggler-bar bar2"></span>
+            <span class="navbar-toggler-bar bar3"></span>
+          </span>
+        </button>
+        <div class="collapse navbar-collapse pt-3 pb-2 py-lg-0 w-100" id="navigation">
+          <ul class="navbar-nav navbar-nav-hover ms-lg-7 ps-lg-5 w-100">
+            
+            <li class="nav-item dropdown dropdown-hover mx-2" >
+              <a class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" href="javascript:;" id="dropdownMenuBlocks" data-bs-toggle="dropdown" aria-expanded="false">
+                Feed Masters
+                <img src="/static/img/down-arrow-dark.svg" alt="down-arrow" class="arrow ms-2 mt-1">
+              </a>
+              <ul class="dropdown-menu dropdown-menu-animation dropdown-lg dropdown-lg-responsive p-3 border-radius-lg mt-0 mt-lg-3" aria-labelledby="dropdownMenuBlocks">
+                <div class="d-none d-lg-block">
+                  
+      <li class="nav-item dropdown dropdown-hover dropdown-subitem">
+        <a class="dropdown-item py-2 ps-3 border-radius-md" href="/masters/feed/list">
+          <div class="d-flex">
+            <div class="icon h-10 me-3 d-flex mt-1">
+              <i class="fa fa-feed text-gradient text-primary" aria-hidden="true"></i>
+            </div>
+            <div class="w-100 d-flex align-items-center justify-content-between">
+              <div>
+                <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">Feeds</h6>
+              </div>
+            </div>
+          </div>
+        </a>
+        <!-- <div class="dropdown-menu mt-0 py-3 px-2 mt-3">
+          <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/page-sections/hero-sections.html">
+            Page Headers
+          </a>
+          <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/page-sections/features.html">
+            Features
+          </a>
+        </div> -->
+      </li>
+    
+    
+    
+      <li class="nav-item dropdown dropdown-hover dropdown-subitem">
+        <a class="dropdown-item py-2 ps-3 border-radius-md" href="/masters/feed/category/list">
+          <div class="d-flex">
+            <div class="icon h-10 me-3 d-flex mt-1">
+              <i class="fa fa-tasks text-gradient text-primary" aria-hidden="true"></i>
+            </div>
+            <div class="w-100 d-flex align-items-center justify-content-between">
+              <div>
+                <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">Feed Category</h6>
+              </div>
+    
+            </div>
+          </div>
+        </a>
+        <!-- <div class="dropdown-menu mt-0 py-3 px-2 mt-3">
+          <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/navigation/navbars.html">
+            Navbars
+          </a>
+          <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/navigation/nav-tabs.html">
+            Nav Tabs
+          </a>
+          <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/navigation/pagination.html">
+            Pagination
+          </a>
+        </div> -->
+      </li>
+      <li class="nav-item dropdown dropdown-hover dropdown-subitem">
+        <a class="dropdown-item py-2 ps-3 border-radius-md" href="/masters/user/list">
+          <div class="d-flex">
+            <div class="icon h-10 me-3 d-flex mt-1">
+              <i class="fa fa-user text-gradient text-primary" aria-hidden="true"></i>
+            </div>
+            <div class="w-100 d-flex align-items-center justify-content-between">
+              <div>
+                <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">Users</h6>
+              </div>
+    
+            </div>
+          </div>
+        </a>
+        <!-- <div class="dropdown-menu mt-0 py-3 px-2 mt-3">
+          <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/navigation/navbars.html">
+            Navbars
+          </a>
+          <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/navigation/nav-tabs.html">
+            Nav Tabs
+          </a>
+          <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/navigation/pagination.html">
+            Pagination
+          </a>
+        </div> -->
+      </li>
+      
+    </div>
+    
+    <div class="row d-lg-none">
+      <div class="col-md-12">
+        <div class="d-flex mb-2">
+          <div class="icon h-10 me-3 d-flex mt-1">
+            <i class="ni ni-single-copy-04 text-gradient text-primary"></i>
+          </div>
+          <div class="w-100 d-flex align-items-center justify-content-between">
+            <div>
+              <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">Page Sections</h6>
+            </div>
+          </div>
+        </div>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/page-sections/hero-sections.html">
+          Page Headers
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/page-sections/features.html">
+          Features
+        </a>
+    
+        <div class="d-flex mb-2 mt-3">
+          <div class="icon h-10 me-3 d-flex mt-1">
+            <i class="ni ni-laptop text-gradient text-primary"></i>
+          </div>
+          <div class="w-100 d-flex align-items-center justify-content-between">
+            <div>
+              <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">Navigation</h6>
+            </div>
+          </div>
+        </div>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/navigation/navbars.html">
+          Navbars
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/navigation/nav-tabs.html">
+          Nav Tabs
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/navigation/pagination.html">
+          Pagination
+        </a>
+    
+    
+        <div class="d-flex mb-2 mt-3">
+          <div class="icon h-10 me-3 d-flex mt-1">
+            <i class="ni ni-badge text-gradient text-primary"></i>
+          </div>
+          <div class="w-100 d-flex align-items-center justify-content-between">
+            <div>
+              <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">Input Areas</h6>
+            </div>
+          </div>
+        </div>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/input-areas/inputs.html">
+          Inputs
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/input-areas/forms.html">
+          Forms
+        </a>
+    
+    
+        <div class="d-flex mb-2 mt-3">
+          <div class="icon h-10 me-3 d-flex mt-1">
+            <i class="ni ni-notification-70 text-gradient text-primary"></i>
+          </div>
+          <div class="w-100 d-flex align-items-center justify-content-between">
+            <div>
+              <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">Attention Catchers</h6>
+            </div>
+          </div>
+        </div>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/attention-catchers/alerts.html">
+          Alerts
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/attention-catchers/modals.html">
+          Modals
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/attention-catchers/tooltips-popovers.html">
+          Tooltips &amp; Popovers
+        </a>
+    
+    
+        <div class="d-flex mb-2 mt-3">
+          <div class="icon h-10 me-3 d-flex mt-1">
+            <i class="ni ni-app text-gradient text-primary"></i>
+          </div>
+          <div class="w-100 d-flex align-items-center justify-content-between">
+            <div>
+              <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">Elements</h6>
+            </div>
+          </div>
+        </div>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/elements/avatars.html">
+          Avatars
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/elements/badges.html">
+          Badges
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/elements/breadcrumbs.html">
+          Breadcrumbs
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/elements/buttons.html">
+          Buttons
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/elements/dropdowns.html">
+          Dropdowns
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/elements/progress-bars.html">
+          Progress Bars
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/elements/toggles.html">
+          Toggles
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/elements/typography.html">
+          Typography
+        </a>
+      </div>
+    </div>
+    
+              </ul>
+            </li>
+            <li class="nav-item dropdown dropdown-hover mx-2" >
+              <a class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" href="javascript:;" id="dropdownMenuBlocks" data-bs-toggle="dropdown" aria-expanded="false">
+                Mapping Addition/Updates
+                <img src="{% static 'img/down-arrow-dark.svg' %}" alt="down-arrow" class="arrow ms-2 mt-1"/>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-animation dropdown-lg dropdown-lg-responsive p-3 border-radius-lg mt-0 mt-lg-3" aria-labelledby="dropdownMenuBlocks">
+                <div class="d-none d-lg-block">
+                  
+      <li class="nav-item dropdown dropdown-hover dropdown-subitem">
+        <a class="dropdown-item py-2 ps-3 border-radius-md" href="/batches/data/upload/form/">
+          <div class="d-flex">
+            <div class="icon h-10 me-3 d-flex mt-1">
+              <i class="fa fa-upload text-gradient text-primary"></i>
+            </div>
+            <div class="w-100 d-flex align-items-center justify-content-between">
+              <div>
+                <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">Data Upload</h6>
+              </div>
+            </div>
+          </div>
+        </a>
+        <!-- <div class="dropdown-menu mt-0 py-3 px-2 mt-3">
+          <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/page-sections/hero-sections.html">
+            Page Headers
+          </a>
+          <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/page-sections/features.html">
+            Features
+          </a>
+        </div> -->
+      </li>
+    
+    
+    
+      <li class="nav-item dropdown dropdown-hover dropdown-subitem">
+        <a class="dropdown-item py-2 ps-3 border-radius-md" href="/batches/batch/list/">
+          <div class="d-flex">
+            <div class="icon h-10 me-3 d-flex mt-1">
+              <i class="fa fa-tasks text-gradient text-primary"></i>
+            </div>
+            <div class="w-100 d-flex align-items-center justify-content-between">
+              <div>
+                <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">Batches</h6>
+              </div>
+    
+            </div>
+          </div>
+        </a>
+        <!-- <div class="dropdown-menu mt-0 py-3 px-2 mt-3">
+          <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/navigation/navbars.html">
+            Navbars
+          </a>
+          <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/navigation/nav-tabs.html">
+            Nav Tabs
+          </a>
+          <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/navigation/pagination.html">
+            Pagination
+          </a>
+        </div> -->
+      </li>
+      <li class="nav-item dropdown dropdown-hover dropdown-subitem">
+        <a class="dropdown-item py-2 ps-3 border-radius-md" href="/batches/batch/update/search/view/">
+          <div class="d-flex">
+            <div class="icon h-10 me-3 d-flex mt-1">
+              <i class="fa fa-refresh text-gradient text-primary"></i>
+            </div>
+            <div class="w-100 d-flex align-items-center justify-content-between">
+              <div>
+                <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">Batch Update</h6>
+              </div>
+    
+            </div>
+          </div>
+        </a>
+        <!-- <div class="dropdown-menu mt-0 py-3 px-2 mt-3">
+          <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/navigation/navbars.html">
+            Navbars
+          </a>
+          <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/navigation/nav-tabs.html">
+            Nav Tabs
+          </a>
+          <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/navigation/pagination.html">
+            Pagination
+          </a>
+        </div> -->
+      </li>
+      <li class="nav-item dropdown dropdown-hover dropdown-subitem">
+        <a class="dropdown-item py-2 ps-3 border-radius-md" href="/batches/data/insert/view/">
+          <div class="d-flex">
+            <div class="icon h-10 me-3 d-flex mt-1">
+              <i class="fa fa-upload text-gradient text-primary"></i>
+            </div>
+            <div class="w-100 d-flex align-items-center justify-content-between">
+              <div>
+                <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">Data Insert</h6>
+              </div>
+            </div>
+          </div>
+        </a>
+        <!-- <div class="dropdown-menu mt-0 py-3 px-2 mt-3">
+          <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/page-sections/hero-sections.html">
+            Page Headers
+          </a>
+          <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/page-sections/features.html">
+            Features
+          </a>
+        </div> -->
+      </li>
+      
+    </div>
+    
+    <div class="row d-lg-none">
+      <div class="col-md-12">
+        <div class="d-flex mb-2">
+          <div class="icon h-10 me-3 d-flex mt-1">
+            <i class="ni ni-single-copy-04 text-gradient text-primary"></i>
+          </div>
+          <div class="w-100 d-flex align-items-center justify-content-between">
+            <div>
+              <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">Page Sections</h6>
+            </div>
+          </div>
+        </div>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/page-sections/hero-sections.html">
+          Page Headers
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/page-sections/features.html">
+          Features
+        </a>
+    
+        <div class="d-flex mb-2 mt-3">
+          <div class="icon h-10 me-3 d-flex mt-1">
+            <i class="ni ni-laptop text-gradient text-primary"></i>
+          </div>
+          <div class="w-100 d-flex align-items-center justify-content-between">
+            <div>
+              <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">Navigation</h6>
+            </div>
+          </div>
+        </div>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/navigation/navbars.html">
+          Navbars
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/navigation/nav-tabs.html">
+          Nav Tabs
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/navigation/pagination.html">
+          Pagination
+        </a>
+    
+    
+        <div class="d-flex mb-2 mt-3">
+          <div class="icon h-10 me-3 d-flex mt-1">
+            <i class="ni ni-badge text-gradient text-primary"></i>
+          </div>
+          <div class="w-100 d-flex align-items-center justify-content-between">
+            <div>
+              <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">Input Areas</h6>
+            </div>
+          </div>
+        </div>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/input-areas/inputs.html">
+          Inputs
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/input-areas/forms.html">
+          Forms
+        </a>
+    
+    
+        <div class="d-flex mb-2 mt-3">
+          <div class="icon h-10 me-3 d-flex mt-1">
+            <i class="ni ni-notification-70 text-gradient text-primary"></i>
+          </div>
+          <div class="w-100 d-flex align-items-center justify-content-between">
+            <div>
+              <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">Attention Catchers</h6>
+            </div>
+          </div>
+        </div>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/attention-catchers/alerts.html">
+          Alerts
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/attention-catchers/modals.html">
+          Modals
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/attention-catchers/tooltips-popovers.html">
+          Tooltips & Popovers
+        </a>
+    
+    
+        <div class="d-flex mb-2 mt-3">
+          <div class="icon h-10 me-3 d-flex mt-1">
+            <i class="ni ni-app text-gradient text-primary"></i>
+          </div>
+          <div class="w-100 d-flex align-items-center justify-content-between">
+            <div>
+              <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">Elements</h6>
+            </div>
+          </div>
+        </div>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/elements/avatars.html">
+          Avatars
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/elements/badges.html">
+          Badges
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/elements/breadcrumbs.html">
+          Breadcrumbs
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/elements/buttons.html">
+          Buttons
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/elements/dropdowns.html">
+          Dropdowns
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/elements/progress-bars.html">
+          Progress Bars
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/elements/toggles.html">
+          Toggles
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/elements/typography.html">
+          Typography
+        </a>
+      </div>
+    </div>
+    
+              </ul>
+            </li>
+    
+            <li class="nav-item dropdown dropdown-hover mx-2" >
+              <a class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" href="javascript:;" id="dropdownMenuBlocks" data-bs-toggle="dropdown" aria-expanded="false">
+                New Feed Templates
+                <img src="/static/img/down-arrow-dark.svg" alt="down-arrow" class="arrow ms-2 mt-1">
+              </a>
+              <ul class="dropdown-menu dropdown-menu-animation dropdown-lg dropdown-lg-responsive p-3 border-radius-lg mt-0 mt-lg-3" aria-labelledby="dropdownMenuBlocks">
+                <div class="d-none d-lg-block">
+                  
+      <li class="nav-item dropdown dropdown-hover dropdown-subitem">
+        <a class="dropdown-item py-2 ps-3 border-radius-md" href="/batches/csv/template/list/">
+          <div class="d-flex">
+            <div class="icon h-10 me-3 d-flex mt-1">
+              <!-- <i class="fa fa-file-excel-o text-gradient text-primary" aria-hidden="true"></i> -->
+              <!-- <i class="fa-solid fa-file-csv"></i>
+               -->
+               <svg xmlns="http://www.w3.org/2000/svg" class="text-primary" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M0 64C0 28.7 28.7 0 64 0L224 0l0 128c0 17.7 14.3 32 32 32l128 0 0 144-208 0c-35.3 0-64 28.7-64 64l0 144-48 0c-35.3 0-64-28.7-64-64L0 64zm384 64l-128 0L256 0 384 128zM200 352l16 0c22.1 0 40 17.9 40 40l0 8c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-8c0-4.4-3.6-8-8-8l-16 0c-4.4 0-8 3.6-8 8l0 80c0 4.4 3.6 8 8 8l16 0c4.4 0 8-3.6 8-8l0-8c0-8.8 7.2-16 16-16s16 7.2 16 16l0 8c0 22.1-17.9 40-40 40l-16 0c-22.1 0-40-17.9-40-40l0-80c0-22.1 17.9-40 40-40zm133.1 0l34.9 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-34.9 0c-7.2 0-13.1 5.9-13.1 13.1c0 5.2 3 9.9 7.8 12l37.4 16.6c16.3 7.2 26.8 23.4 26.8 41.2c0 24.9-20.2 45.1-45.1 45.1L304 512c-8.8 0-16-7.2-16-16s7.2-16 16-16l42.9 0c7.2 0 13.1-5.9 13.1-13.1c0-5.2-3-9.9-7.8-12l-37.4-16.6c-16.3-7.2-26.8-23.4-26.8-41.2c0-24.9 20.2-45.1 45.1-45.1zm98.9 0c8.8 0 16 7.2 16 16l0 31.6c0 23 5.5 45.6 16 66c10.5-20.3 16-42.9 16-66l0-31.6c0-8.8 7.2-16 16-16s16 7.2 16 16l0 31.6c0 34.7-10.3 68.7-29.6 97.6l-5.1 7.7c-3 4.5-8 7.1-13.3 7.1s-10.3-2.7-13.3-7.1l-5.1-7.7c-19.3-28.9-29.6-62.9-29.6-97.6l0-31.6c0-8.8 7.2-16 16-16z"/></svg>
+            </div>
+            <div class="w-100 d-flex align-items-center justify-content-between">
+              <div>
+                <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">Templates</h6>
+              </div>
+            </div>
+          </div>
+        </a>
+        <!-- <div class="dropdown-menu mt-0 py-3 px-2 mt-3">
+          <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/page-sections/hero-sections.html">
+            Page Headers
+          </a>
+          <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/page-sections/features.html">
+            Features
+          </a>
+        </div> -->
+      </li>
+    
+    
+    
+      <li class="nav-item dropdown dropdown-hover dropdown-subitem">
+        
+        <!-- <div class="dropdown-menu mt-0 py-3 px-2 mt-3">
+          <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/navigation/navbars.html">
+            Navbars
+          </a>
+          <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/navigation/nav-tabs.html">
+            Nav Tabs
+          </a>
+          <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/navigation/pagination.html">
+            Pagination
+          </a>
+        </div> -->
+      </li>
+    
+      
+    </div>
+    
+    <div class="row d-lg-none">
+      <div class="col-md-12">
+        <div class="d-flex mb-2">
+          <div class="icon h-10 me-3 d-flex mt-1">
+            <i class="ni ni-single-copy-04 text-gradient text-primary"></i>
+          </div>
+          <div class="w-100 d-flex align-items-center justify-content-between">
+            <div>
+              <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">Page Sections</h6>
+            </div>
+          </div>
+        </div>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/page-sections/hero-sections.html">
+          Page Headers
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/page-sections/features.html">
+          Features
+        </a>
+    
+        <div class="d-flex mb-2 mt-3">
+          <div class="icon h-10 me-3 d-flex mt-1">
+            <i class="ni ni-laptop text-gradient text-primary"></i>
+          </div>
+          <div class="w-100 d-flex align-items-center justify-content-between">
+            <div>
+              <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">Navigation</h6>
+            </div>
+          </div>
+        </div>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/navigation/navbars.html">
+          Navbars
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/navigation/nav-tabs.html">
+          Nav Tabs
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/navigation/pagination.html">
+          Pagination
+        </a>
+    
+    
+        <div class="d-flex mb-2 mt-3">
+          <div class="icon h-10 me-3 d-flex mt-1">
+            <i class="ni ni-badge text-gradient text-primary"></i>
+          </div>
+          <div class="w-100 d-flex align-items-center justify-content-between">
+            <div>
+              <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">Input Areas</h6>
+            </div>
+          </div>
+        </div>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/input-areas/inputs.html">
+          Inputs
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/input-areas/forms.html">
+          Forms
+        </a>
+    
+    
+        <div class="d-flex mb-2 mt-3">
+          <div class="icon h-10 me-3 d-flex mt-1">
+            <i class="ni ni-notification-70 text-gradient text-primary"></i>
+          </div>
+          <div class="w-100 d-flex align-items-center justify-content-between">
+            <div>
+              <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">Attention Catchers</h6>
+            </div>
+          </div>
+        </div>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/attention-catchers/alerts.html">
+          Alerts
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/attention-catchers/modals.html">
+          Modals
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/attention-catchers/tooltips-popovers.html">
+          Tooltips &amp; Popovers
+        </a>
+    
+    
+        <div class="d-flex mb-2 mt-3">
+          <div class="icon h-10 me-3 d-flex mt-1">
+            <i class="ni ni-app text-gradient text-primary"></i>
+          </div>
+          <div class="w-100 d-flex align-items-center justify-content-between">
+            <div>
+              <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">Elements</h6>
+            </div>
+          </div>
+        </div>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/elements/avatars.html">
+          Avatars
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/elements/badges.html">
+          Badges
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/elements/breadcrumbs.html">
+          Breadcrumbs
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/elements/buttons.html">
+          Buttons
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/elements/dropdowns.html">
+          Dropdowns
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/elements/progress-bars.html">
+          Progress Bars
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/elements/toggles.html">
+          Toggles
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/elements/typography.html">
+          Typography
+        </a>
+      </div>
+    </div>
+    
+              </ul>
+            </li>
+            <li class="nav-item dropdown dropdown-hover mx-2" >
+              <a class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" href="javascript:;" id="dropdownMenuBlocks" data-bs-toggle="dropdown" aria-expanded="false">
+                Feed Mappings
+                <img src="/static/img/down-arrow-dark.svg" alt="down-arrow" class="arrow ms-2 mt-1">
+              </a>
+              <ul class="dropdown-menu dropdown-menu-animation dropdown-lg dropdown-lg-responsive p-3 border-radius-lg mt-0 mt-lg-3" aria-labelledby="dropdownMenuBlocks">
+                <div class="d-none d-lg-block">
+                  
+      <li class="nav-item dropdown dropdown-hover dropdown-subitem">
+        <a class="dropdown-item py-2 ps-3 border-radius-md" href="/reports/data/export/form/">
+          <div class="d-flex">
+            <div class="icon h-10 me-3 d-flex mt-1">
+              <!-- <i class="fa fa-file-export text-gradient text-primary" aria-hidden="true"></i> -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="text-primary" viewBox="0 0 576 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M0 64C0 28.7 28.7 0 64 0L224 0l0 128c0 17.7 14.3 32 32 32l128 0 0 128-168 0c-13.3 0-24 10.7-24 24s10.7 24 24 24l168 0 0 112c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 64zM384 336l0-48 110.1 0-39-39c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l80 80c9.4 9.4 9.4 24.6 0 33.9l-80 80c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l39-39L384 336zm0-208l-128 0L256 0 384 128z"/></svg>
+            </div>
+            <div class="w-100 d-flex align-items-center justify-content-between">
+              <div>
+                <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">Export Mappings</h6>
+              </div>
+            </div>
+          </div>
+        </a>
+        <a class="dropdown-item py-2 ps-3 border-radius-md" href="/reports/log/report/search/view/">
+          <div class="d-flex">
+            <div class="icon h-10 me-3 d-flex mt-1">
+              <!-- <i class="fa fa-export text-gradient text-primary" aria-hidden="true"></i> -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="text-primary" viewBox="0 0 576 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M0 64C0 28.7 28.7 0 64 0L224 0l0 128c0 17.7 14.3 32 32 32l128 0 0 128-168 0c-13.3 0-24 10.7-24 24s10.7 24 24 24l168 0 0 112c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 64zM384 336l0-48 110.1 0-39-39c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l80 80c9.4 9.4 9.4 24.6 0 33.9l-80 80c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l39-39L384 336zm0-208l-128 0L256 0 384 128z"/></svg>
+            </div>
+            <div class="w-100 d-flex align-items-center justify-content-between">
+              <div>
+                <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">Log Report</h6>
+              </div>
+    
+            </div>
+          </div>
+        </a>
+        <!-- <div class="dropdown-menu mt-0 py-3 px-2 mt-3">
+          <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/page-sections/hero-sections.html">
+            Page Headers
+          </a>
+          <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/page-sections/features.html">
+            Features
+          </a>
+        </div> -->
+      </li>
+    
+    
+    
+      
+    
+      
+    </div>
+    
+    <div class="row d-lg-none">
+      <div class="col-md-12">
+        <div class="d-flex mb-2">
+          <div class="icon h-10 me-3 d-flex mt-1">
+            <i class="ni ni-single-copy-04 text-gradient text-primary"></i>
+          </div>
+          <div class="w-100 d-flex align-items-center justify-content-between">
+            <div>
+              <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">Page Sections</h6>
+            </div>
+          </div>
+        </div>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/page-sections/hero-sections.html">
+          Page Headers
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/page-sections/features.html">
+          Features
+        </a>
+    
+        <div class="d-flex mb-2 mt-3">
+          <div class="icon h-10 me-3 d-flex mt-1">
+            <i class="ni ni-laptop text-gradient text-primary"></i>
+          </div>
+          <div class="w-100 d-flex align-items-center justify-content-between">
+            <div>
+              <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">Navigation</h6>
+            </div>
+          </div>
+        </div>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/navigation/navbars.html">
+          Navbars
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/navigation/nav-tabs.html">
+          Nav Tabs
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/navigation/pagination.html">
+          Pagination
+        </a>
+    
+    
+        <div class="d-flex mb-2 mt-3">
+          <div class="icon h-10 me-3 d-flex mt-1">
+            <i class="ni ni-badge text-gradient text-primary"></i>
+          </div>
+          <div class="w-100 d-flex align-items-center justify-content-between">
+            <div>
+              <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">Input Areas</h6>
+            </div>
+          </div>
+        </div>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/input-areas/inputs.html">
+          Inputs
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/input-areas/forms.html">
+          Forms
+        </a>
+    
+    
+        <div class="d-flex mb-2 mt-3">
+          <div class="icon h-10 me-3 d-flex mt-1">
+            <i class="ni ni-notification-70 text-gradient text-primary"></i>
+          </div>
+          <div class="w-100 d-flex align-items-center justify-content-between">
+            <div>
+              <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">Attention Catchers</h6>
+            </div>
+          </div>
+        </div>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/attention-catchers/alerts.html">
+          Alerts
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/attention-catchers/modals.html">
+          Modals
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/attention-catchers/tooltips-popovers.html">
+          Tooltips &amp; Popovers
+        </a>
+    
+    
+        <div class="d-flex mb-2 mt-3">
+          <div class="icon h-10 me-3 d-flex mt-1">
+            <i class="ni ni-app text-gradient text-primary"></i>
+          </div>
+          <div class="w-100 d-flex align-items-center justify-content-between">
+            <div>
+              <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">Elements</h6>
+            </div>
+          </div>
+        </div>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/elements/avatars.html">
+          Avatars
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/elements/badges.html">
+          Badges
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/elements/breadcrumbs.html">
+          Breadcrumbs
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/elements/buttons.html">
+          Buttons
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/elements/dropdowns.html">
+          Dropdowns
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/elements/progress-bars.html">
+          Progress Bars
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/elements/toggles.html">
+          Toggles
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/elements/typography.html">
+          Typography
+        </a>
+      </div>
+    </div>
+    
+              </ul>
+            </li>
+   
+            <li class="nav-item ms-lg-auto">
+              
+            </li>
+            <!-- <li class="nav-item my-auto ms-3 ms-lg-0" >
+              <a href="" class="btn btn-sm btn-outline-primary btn-round mb-0 me-1 mt-2 mt-md-0" >Admin Login</a>
+            </li> -->
+            <li class="nav-item my-auto ms-3 ms-lg-0" >
+              
+              <a href="/dashboard/" class="btn btn-sm  bg-gradient-primary  btn-round mb-0 me-1 mt-2 mt-md-0">Go to Dashboard</a>
+              
+            </li>
+            <li class="nav-item dropdown dropdown-hover mx-2 page-item" >
+              <a class="page-link btn btn-sm text-white bg-gradient-primary " href="javascript:;" id="dropdownMenuBlocks" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class=" fa fa-user"></i>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-animation dropdown-lg dropdown-lg-responsive p-3 border-radius-lg mt-0 mt-lg-3" aria-labelledby="dropdownMenuBlocks">
+                <div class="d-none d-lg-block">
+                  
+      <li class="nav-item dropdown dropdown-hover dropdown-subitem">
+        <a class="dropdown-item py-2 ps-3 border-radius-md" href="/masters/user/profile/">
+          <div class="d-flex">
+            <div class="icon h-10 me-3 d-flex mt-1">
+              <i class="fa fa-user text-gradient text-primary"></i>
+            </div>
+            <div class="w-100 d-flex align-items-center justify-content-between">
+              <div>
+                <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">Profile</h6>
+              </div>
+            </div>
+          </div>
+        </a>
+        <!-- <div class="dropdown-menu mt-0 py-3 px-2 mt-3">
+          <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/page-sections/hero-sections.html">
+            Page Headers
+          </a>
+          <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/page-sections/features.html">
+            Features
+          </a>
+        </div> -->
+      </li>
+    
+    
+    
+      <li class="nav-item dropdown dropdown-hover dropdown-subitem">
+        <a class="dropdown-item py-2 ps-3 border-radius-md" href="/user/logout/">
+          <div class="d-flex">
+            <div class="icon h-10 me-3 d-flex mt-1">
+              <i class="fa fa-sign-out text-gradient text-primary"></i>
+            </div>
+            <div class="w-100 d-flex align-items-center justify-content-between">
+              <div>
+                <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">Logout</h6>
+              </div>
+            </div>
+          </div>
+        </a>
+        <!-- <div class="dropdown-menu mt-0 py-3 px-2 mt-3">
+          <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/navigation/navbars.html">
+            Navbars
+          </a>
+          <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/navigation/nav-tabs.html">
+            Nav Tabs
+          </a>
+          <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/navigation/pagination.html">
+            Pagination
+          </a>
+        </div> -->
+      </li>
+    
+      
+    </div>
+    
+    <div class="row d-lg-none">
+      <div class="col-md-12">
+        <div class="d-flex mb-2">
+          <div class="icon h-10 me-3 d-flex mt-1">
+            <i class="ni ni-single-copy-04 text-gradient text-primary"></i>
+          </div>
+          <div class="w-100 d-flex align-items-center justify-content-between">
+            <div>
+              <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">Page Sections</h6>
+            </div>
+          </div>
+        </div>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/page-sections/hero-sections.html">
+          Page Headers
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/page-sections/features.html">
+          Features
+        </a>
+    
+        <div class="d-flex mb-2 mt-3">
+          <div class="icon h-10 me-3 d-flex mt-1">
+            <i class="ni ni-laptop text-gradient text-primary"></i>
+          </div>
+          <div class="w-100 d-flex align-items-center justify-content-between">
+            <div>
+              <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">Navigation</h6>
+            </div>
+          </div>
+        </div>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/navigation/navbars.html">
+          Navbars
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/navigation/nav-tabs.html">
+          Nav Tabs
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/navigation/pagination.html">
+          Pagination
+        </a>
+    
+    
+        <div class="d-flex mb-2 mt-3">
+          <div class="icon h-10 me-3 d-flex mt-1">
+            <i class="ni ni-badge text-gradient text-primary"></i>
+          </div>
+          <div class="w-100 d-flex align-items-center justify-content-between">
+            <div>
+              <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">Input Areas</h6>
+            </div>
+          </div>
+        </div>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/input-areas/inputs.html">
+          Inputs
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/input-areas/forms.html">
+          Forms
+        </a>
+    
+    
+        <div class="d-flex mb-2 mt-3">
+          <div class="icon h-10 me-3 d-flex mt-1">
+            <i class="ni ni-notification-70 text-gradient text-primary"></i>
+          </div>
+          <div class="w-100 d-flex align-items-center justify-content-between">
+            <div>
+              <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">Attention Catchers</h6>
+            </div>
+          </div>
+        </div>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/attention-catchers/alerts.html">
+          Alerts
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/attention-catchers/modals.html">
+          Modals
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/attention-catchers/tooltips-popovers.html">
+          Tooltips & Popovers
+        </a>
+    
+    
+        <div class="d-flex mb-2 mt-3">
+          <div class="icon h-10 me-3 d-flex mt-1">
+            <i class="ni ni-app text-gradient text-primary"></i>
+          </div>
+          <div class="w-100 d-flex align-items-center justify-content-between">
+            <div>
+              <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">Elements</h6>
+            </div>
+          </div>
+        </div>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/elements/avatars.html">
+          Avatars
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/elements/badges.html">
+          Badges
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/elements/breadcrumbs.html">
+          Breadcrumbs
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/elements/buttons.html">
+          Buttons
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/elements/dropdowns.html">
+          Dropdowns
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/elements/progress-bars.html">
+          Progress Bars
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/elements/toggles.html">
+          Toggles
+        </a>
+        <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/elements/typography.html">
+          Typography
+        </a>
+      </div>
+    </div>
+    
+              </ul>
+            </li>
+    
+            <!-- <li class="nav-item my-auto ms-3 ms-lg-0" {% if not request.user.is_authenticated %} style="display: none;" {% endif %}>
+              
+              <a href="/" class="btn btn-sm  bg-gradient-secondary  btn-round mb-0 me-1 mt-2 mt-md-0">Logout</a>
+              
+            </li> -->
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+  </div>
+  </div>
+  </div>
+  <script src="https://malsup.github.io/jquery.blockUI.js" type="text/javascript"></script>
+  <!-- <script src="{% static 'js/custom/paginate.js' %}"></script> -->
+{% block content %}
+
+
+{% endblock %}
+
+</body>
+
+
+<!--   Core JS Files   -->
+<script src="{% static 'js/core/popper.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/core/bootstrap.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/plugins/perfect-scrollbar.min.js' %}"></script>
+
+
+
+
+<!--  Plugin for TypedJS, full documentation here: https://github.com/inorganik/CountUp.js -->
+<script src="{% static 'js/plugins/countup.min.js' %}"></script>
+
+
+
+
+
+<script src="{% static 'js/plugins/choices.min.js' %}"></script>
+
+
+
+
+
+<script src="{% static 'js/plugins/prism.min.js' %}"></script>
+<!-- <script src="{% static 'js/plugins/highlight.min.js' %}"></script> -->
+
+
+
+
+
+<!--  Plugin for Parallax, full documentation here: https://github.com/dixonandmoe/rellax -->
+<script src="{% static 'js/plugins/rellax.min.js' %}"></script>
+<!--  Plugin for TiltJS, full documentation here: https://gijsroge.github.io/tilt.js/ -->
+<script src="{% static 'js/plugins/tilt.min.js' %}"></script>
+<!--  Plugin for Selectpicker - ChoicesJS, full documentation here: https://github.com/jshjohnson/Choices -->
+<script src="{% static 'js/plugins/choices.min.js' %}"></script>
+
+
+<!--  Plugin for Parallax, full documentation here: https://github.com/wagerfield/parallax  -->
+<script src="{% static 'js/plugins/parallax.min.js' %}"></script>
+
+
+
+
+
+
+
+
+<!-- Control Center for Soft UI Kit: parallax effects, scripts for the example pages etc -->
+<!--  Google Maps Plugin    -->
+
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTTfWur0PDbZWPr7Pmq8K3jiDp0_xUziI"></script> -->
+<script src="{% static 'js/soft-design-system.min.js' %}" type="text/javascript"></script>
+<link href="{% static 'js/plugins/multi-chosen/chosen.min.css' %}" rel='stylesheet' type='text/css'>
+<script src="{% static 'js/plugins/multi-chosen/chosen.jquery.min.js' %}" type='text/javascript'></script>
+<!-- <script type="text/javascript" src="{% static 'js/bootstrap-multiselect.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/require.min.js' %}"></script> -->
+
+<script type="text/javascript">
+  setTimeout(function() { $(".alert"). hide(); }, 5000);
+  $.unblockUI()
+  var block_message = { message: '<div class="page-content page-container" id="page-content">\
+    <div class="padding" style="background-color:unset!important">\
+        <div class="row container d-flex justify-content-center">\
+<div class="loader-demo-box">\
+                        <div class="bar-loader">\
+                          <span></span>\
+                          <span></span>\
+                          <span></span>\
+                          <span></span>\
+                        </div>\
+                      </div>\
+                      </div>\
+                          </div>\
+                              </div>' }
+    
+  $('.submit-form-btn').on('click', function(e){
+      e.preventDefault()  
+      $.blockUI(block_message)
+      var form = $(e.target).attr('submit-id')
+      $("#"+form).submit()
+    })
+    $('#success-popup-ok').click(function(){
+      $('#success-popup').modal('hide')
+    })
+  if (document.getElementById('state1')) {
+    $.unblockUI()
+    const countUp = new CountUp('state1', document.getElementById("state1").getAttribute("countTo"));
+    if (!countUp.error) {
+      countUp.start();
+    } else {
+      console.error(countUp.error);
+    }
+  }
+  if (document.getElementById('state2')) {
+    const countUp1 = new CountUp('state2', document.getElementById("state2").getAttribute("countTo"));
+    if (!countUp1.error) {
+      countUp1.start();
+    } else {
+      console.error(countUp1.error);
+    }
+  }
+  if (document.getElementById('state3')) {
+    const countUp2 = new CountUp('state3', document.getElementById("state3").getAttribute("countTo"));
+    if (!countUp2.error) {
+      countUp2.start();
+    } else {
+      console.error(countUp2.error);
+    };
+    
+  }
+
+
+  function getCookie(c_name) {
+        if(document.cookie.length > 0) {
+            c_start = document.cookie.indexOf(c_name + "=");
+            if(c_start != -1) {
+                c_start = c_start + c_name.length + 1;
+                c_end = document.cookie.indexOf(";", c_start);
+                if(c_end == -1) c_end = document.cookie.length;
+                return unescape(document.cookie.substring(c_start,c_end));
+            }
+        }
+        return "";
+    }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
+

@@ -1,0 +1,139 @@
+
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+
+<header class="header-2">
+    <div class="page-header min-vh-75 relative" style="background-image: url('/static/img/curved-images/curved.jpg')">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-7 text-center mx-auto">
+            <!-- <h1 class="text-white pt-3 mt-n5">MSCI</h1> -->
+            <!-- <p class="lead text-white mt-3">American Finance Company</p> -->
+          </div>
+        </div>
+      </div>
+  
+      <div class="position-absolute w-100 z-index-1 bottom-0">
+        <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 40" preserveAspectRatio="none" shape-rendering="auto">
+          <defs>
+            <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"></path>
+          </defs>
+          <g class="moving-waves">
+            <use xlink:href="#gentle-wave" x="48" y="-1" fill="rgba(255,255,255,0.40"></use>
+            <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.35)"></use>
+            <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.25)"></use>
+            <use xlink:href="#gentle-wave" x="48" y="8" fill="rgba(255,255,255,0.20)"></use>
+            <use xlink:href="#gentle-wave" x="48" y="13" fill="rgba(255,255,255,0.15)"></use>
+            <use xlink:href="#gentle-wave" x="48" y="16" fill="rgba(255,255,255,0.95"></use>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </header>
+  <section class="pt-3 pb-4" id="count-stats">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-9 z-index-2 border-radius-xl mt-n10 mx-auto py-3 blur shadow-blur">
+          <div class="row">
+            <div class="col-md-4 position-relative">
+              <div class="p-3 text-center">
+                <h1 class="text-gradient text-primary"><span id="state1" countto="{{total_batches}}">{{total_batches}}</span></h1>
+                <h5 class="mt-3">Total Batches</h5>
+                <p class="text-sm">Total number of batches available</p>
+              </div>
+              <hr class="vertical dark">
+            </div>
+            <div class="col-md-4 position-relative">
+                <div class="p-3 text-center">
+                  <h1 class="text-gradient text-primary"> <span id="state2" countto="{{status.0}}">{{status.0}}</span></h1>
+                  <h5 class="mt-3">Waiting for approval</h5>
+                  <p class="text-sm">Batches which are validated and yet to approved</p>
+                </div>
+                <hr class="vertical dark">
+              </div>
+              <!-- <div class="col-md-3 position-relative">
+                <div class="p-3 text-center">
+                  <h1 class="text-gradient text-primary"> <span id="state2" countto="5">5</span></h1>
+                  <h5 class="mt-3">Rejected </h5>
+                  <p class="text-sm">Batches which are rejected because of data mismatch.</p>
+                </div>
+                <hr class="vertical dark">
+              </div> -->
+            <div class="col-md-4 position-relative">
+              <div class="p-3 text-center">
+                <h1 class="text-gradient text-primary"> <span id="state3" countto="{{status.1}}">{{status.1}}</span></h1>
+                <h5 class="mt-3">Approved batches</h5>
+                <p class="text-sm">Batches which are approved and yet to push.</p>
+              </div>
+              <hr class="vertical dark">
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="my-5 py-5">
+    <div class="container">
+        <div class="card">
+            <div class="table-responsive">
+              <table class="table align-items-center mb-0 text-center">
+                <thead>
+                  <tr>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">S.No</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Batch No.</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Record Count</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
+                    <!-- <th class="text-secondary opacity-7"></th> -->
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for batch in batches %}
+                    <tr>
+                      <td>
+                        <span class="text-secondary text-xs font-weight-bold">{{forloop.counter}}</span>
+                      </td>
+                      <td>
+                          <span class="text-secondary text-xs font-weight-bold">{{batch.BatchNo}}</span>
+                      </td>
+                      <td class="align-middle text-right text-sm">
+                          <span class="text-secondary text-xs font-weight-bold">{{batch.RecordCount}}</span>
+                      </td>
+                      <td class="align-middle text-center">
+                        
+                          <span class="badge badge-sm {% if batch.Status == '0' %} badge-secondary {% elif batch.Status == '1' %} badge-primary {% endif %}">{{batch.status_display_value}}</span>
+                        
+                      </td>
+                      <!-- <td class="align-middle text-center">
+                        <a href="" class="btn btn-sm btn-outline-primary btn-round mb-0 me-1 mt-2 mt-md-0">View</a>
+                    </td> -->
+                    </tr>
+                  {% endfor %}
+                  
+                  
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="5" class="tfoot_class text-danger">
+                      <br/>
+                        <a class="btn btn-sm btn-outline-primary mb-0" href="/batches/batch/list/"><i class="fa fa-angle-double-right"></i><span> View more</span></a>
+                    </td>
+                  </tr>
+                  <!-- <div class="row">
+                    <div class="col-md-12">
+                      <i class="fa fa-forward"></i><p> View more</p>
+                    </div>
+                  </div> -->
+                </tfoot>
+              </table>
+            </div>
+          </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+{% endblock %}

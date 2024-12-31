@@ -1,0 +1,13 @@
+{
+    "client_id_empty": "Client ID is not provided.",
+    "invalid_client_id": "Invalid Client ID provided",
+    "invalid_uploadvaluation": "Please Enter 0/1 for UploadValuations",
+    "invalid_uploadtransactions": "Please Enter 0/1 for UploadTransactions",
+    "invalid_secondarylegscope": "Please populate a valid secondaryLegScope Value",
+    "invalid_secondarylegcode": "Please populate a Valid SecondaryLegCode",
+    "invalid_primaryfundcode":"Invalid PrimaryFundCode",
+    "invalid_portfoliocode": "Invalid PortfolioCode",
+    "invalid_commitmentid": "Please Enter Correct CommitmentID",
+    "invalid_classid": "Please Enter Correct ClassID",
+    "unique_validation": "{} and {} combination is already available. Can't create a duplicate record.."
+}

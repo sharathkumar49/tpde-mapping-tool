@@ -1,0 +1,154 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+{% include 'SuccessAlert.html' %}
+{% include 'WarningAlert.html' %}
+{% include 'ColumnWizard.html' %}
+
+<section class="global-section">
+    <div class="container py-4 card">
+        <div class="row card-body">
+            <h3 class="text-center fs-5 text-uppercase">Batch Update</h3>
+            {% if screen_type == 'search_view' %}
+            <div class="col-lg-12 p-5 mx-auto d-flex justify-content-center flex-column">
+                <form role="form" id="data-form" method="post" action="/batches/batch/record/search/" autocomplete="off"
+                    enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Feed Name</label><span class="text-danger"> *</span>
+                            <div class="input-group mb-4">
+                                <select class="form-control text-uppercase" placeholder="" name="FeedID" required>
+                                    <option value="">--Choose Feed--</option>
+                                    {% for fd in feed %}
+                                    <option value="{{fd.FeedID}}">{{fd.Name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Feed Category</label><span class="text-danger"> *</span>
+                            <div class="input-group mb-4">
+                                <select class="form-control text-uppercase" placeholder="" name="FeedCategoryID" required>
+                                    <option value="">--Choose Feed Category--</option>
+                                    {% for fc in category %}
+                                        <option value="{{fc.FeedCategoryID}}">{{fc.Name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Client ID</label><span class="text-danger"> *</span>
+                            <div class="input-group mb-4">
+                                <input type="text" name="client_id" id="client_id" class="form-control text-uppercase"/>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Update Type</label><span class="text-danger"> *</span>
+                            <select class="form-control text-uppercase" placeholder="" name="update_type" required>
+                                <option value="">--Choose Update Type--</option>
+                                <option value="add"><i class="fa fa-search"></i>ADD</option>
+                                <option value="remove">remove</option>
+                                <option value="bulk">bulk update</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-sm bg-gradient-dark"><i class="fa fa-search"></i>
+                                 search</button>
+                                <button type="button" class="btn btn-sm bg-gradient-secondary"><i class="fa fa-times"></i>
+                                     clear</button>
+                        </div>
+
+                    </div>
+
+                </form>
+            </div>
+            {% elif screen_type == 'bulk_update_view' %}
+            <div class="col-lg-12 mx-auto d-flex justify-content-center flex-column">
+                <form role="form" id="bulk-update-form" method="post" action="/batches/batch/update/" autocomplete="off" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    <input type="hidden" name="update_type" value="bulk">
+                    <input type="hidden" name="ids" id="ids" value="{{ids}}">
+                    <input type="hidden" name="feed_id" id="feed_id" value="{{feed_id}}">
+                    
+                    <input type="hidden" name="feed_category_id" id="feed_category_id" value="{{feed_category_id}}">
+                    <div class="row">
+                        {% for column in columns %}
+                            <div class="col-md-3">
+                                <label>{{column}}</label><span class="text-danger"> *</span>
+                                <div class="input-group mb-4">
+                                    <input type="text" class="form-control" placeholder="Enter {{column}}" name="{{column}}"
+                                        required>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                        <div class="row">
+                        <div class="col-md-2">
+                            <button type="submit" class="btn bg-gradient-dark w-100 text-uppercase"><i class="fa fa-save"></i>
+                                update</button>
+                        </div>
+
+                    </div>
+
+                </form>
+            </div>
+            {% else %}
+            <div class="row">
+                <form role="form" id="update-form" method="post" {% if data.update_type == 'bulk' %}  action="/batches/batch/update/view/" {% else %} action="/batches/batch/update/ " {% endif %} autocomplete="off"
+                    enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden" name="ids" id="ids" value="">
+                    <input type="hidden" name="columns" id="columns" value="">
+                    <input type="hidden" name="feed_id" id="feed_id" value="{{data.FeedID}}">
+                    <input type="hidden" name="client_id" id="client_id" value="{{data.client_id}}">
+                    {% if message %}
+                        <input type="hidden" name="alert_msg" id="message" value="{{message}}">
+                    {% else %}
+                        <input type="hidden" name="alert_msg" id="message" value="{{data.message}}">
+                    {% endif %}
+                    
+                    <input type="hidden" name="update_type" id="update_type" value="{{data.update_type}}">
+                    <input type="hidden" name="feed_category_id" id="feed_category_id" value="{{data.FeedCategoryID}}">
+                </form>
+                {% if screen_type != 'update' %}
+                    <div class="col-md-4">
+                        <label class="control-label text-secondary">Feed Name : {{data.feed_name}}</label><br />
+                        <label class="control-label text-secondary">Feed Category :
+                            {{data.feed_category_name}}</label><br />
+                        <label class="control-label text-secondary">Client ID : {{data.client_id}}</label>
+                        <input type="hidden" name="mapping_ids" id="mapping_ids" value="{{data.mapping_ids}}">
+                    </div>
+                    <div class="col-lg-8">
+                            <button type="button" class="btn btn-primary" style="float: right;" id="update-btn"><i class="fa fa-forward"></i>
+                                {% if data.update_type == 'bulk' %} select columns to update {% else %} udpate {% endif %}</button>
+                    </div>
+                    {% endif %}
+            </div>
+            <div class="table-responsive">
+                <table class="table table-sm" id="batch-record-table">
+                    <thead class="bg-secondary">
+                        {% include 'Headers.html' %}
+                        {% if screen_type != 'update' %}
+                            <tr class="bg-white">
+                                <th></th>
+                                {% for header in data.headers %}
+                                <th><input type="text" class="form-control search-input" id="{{header}}"
+                                        placeholder="Search.."></th>
+                                {% endfor %}
+                            </tr>
+                        {% endif %}
+                    </thead>
+                    <tbody>
+                        {% include 'Contents.html' %}
+                    </tbody>
+                </table>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+<script src="{% static 'js/custom/batch_update.js' %}"></script>
+{% endblock %}

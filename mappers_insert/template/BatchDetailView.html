@@ -1,0 +1,424 @@
+<div class="modal fade" id="message-popup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-danger text-right" id="exampleModalLabel">Errors</h5>
+          <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="popup-close">
+            <span aria-hidden="true">&times;</span>
+          </button> -->
+        </div>
+        <div class="modal-body">
+          <table class="table table-sm table-bordered">
+            <thead class="bg-gradient-secondary">
+              <th>Label</th>
+              <th>Message</th>
+            </thead>
+            <tbody>
+              {% for key, value in data.ErrorMessages.items %}
+                {% if value %}
+                  <tr>
+                    <td>{{key}}</td>
+                    <td>{{value}}</td>
+                  </tr>
+                {% endif %}
+              {% endfor %}
+            </tbody>
+          </table>
+          
+          
+        </div>
+        <!-- <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div> -->
+      </div>
+    </div>
+  </div>
+
+  {% if batch.Configuration.ValidationType == 'nt_acc_mapping' %}
+  <div class="col-lg-7 mx-auto d-flex justify-content-center flex-column">
+    <!-- <h3 class="text-center">Detail View</h3> -->
+  </div>
+  <a href="/batches/record/view/{{batch.BatchID}}/" class="btn btn-sm  bg-gradient-primary w-10  btn-round mb-0 me-1 mt-2 mt-md-0"><i class="fa fa-backward h-100 icon-class mr-1"></i>  Back</a>
+  <br />
+  <a href="/batches/record/edit/view/{{batch.BatchID}}/{{data.MappingID}}/" class="btn btn-sm  bg-gradient-primary w-10  btn-round mb-0 me-1 mt-2 mt-md-0"><i class="fa fa-pencil h-100 icon-class mr-1"></i>  Edit</a>
+  <h3>{{data.NTAccountName}}</h3>
+  <br />
+  <div class="row">
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.ClientID %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>Client ID</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.ClientID %}  class="control-label font-weight-bold text-danger" {% else %}  class="control-label font-weight-bold" {% endif %}>{{data.ClientID}}</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.Consolidation %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>Consolidation</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.Consolidation %} style="cursor: pointer;" class="control-label font-weight-bold text-danger error-data" {% else %}class="control-label font-weight-bold" {% endif %}>{{data.Consolidation}}</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.NTAccountNumber %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>NT Account Number</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.NTAccountNumber %} style="cursor: pointer;" class="control-label font-weight-bold text-danger error-data" {% else %}class="control-label font-weight-bold" {% endif %}>{{data.NTAccountNumber }}</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.NTAccountName %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>NT Account Name</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.NTAccountName %} style="cursor: pointer;" class="control-label font-weight-bold text-danger error-data" {% else %}class="control-label font-weight-bold" {% endif %}>{{ data.NTAccountName }}</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.CSecurityId %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>CSecurity ID</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.CSecurityId %} style="cursor: pointer;" class="control-label font-weight-bold text-danger error-data" {% else %}class="control-label font-weight-bold" {% endif %}>{{ data.CSecurityId }}</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.NSecNum %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>NSecNum</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.NSecNum %} style="cursor: pointer;" class="control-label font-weight-bold text-danger error-data" {% else %}class="control-label font-weight-bold" {% endif %}>{{data.NSecNum}}</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.IsSMA %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>IsSMA</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.IsSMA %} style="cursor: pointer;" class="control-label font-weight-bold text-danger error-data" {% else %}class="control-label font-weight-bold" {% endif %}>{{ data.IsSMA }}</label>
+    </div>
+    <div class="col-md-3" >
+      <label {% if data.ErrorMessages.UploadValuationsDaily %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>Upload Valuations Daily</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.UploadValuationsDaily %} style="cursor: pointer;" class="control-label font-weight-bold text-danger error-data" {% else %}class="control-label font-weight-bold" {% endif %}>{{data.UploadValuationsDaily}}</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.UploadValuationsMonthly %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>Upload Valuations Monthly</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.UploadValuationsMonthly %} style="cursor: pointer;" class="control-label font-weight-bold text-danger error-data" {% else %}class="control-label font-weight-bold" {% endif %}>{{ data.UploadValuationsMonthly }}</label>
+      <!-- {% if data.ErrorMessages.ClassID %} <p class="text-danger error-messages">{{data.ErrorMessages.ClassID}}</p> {% endif %} -->
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.PrimaryScope %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>Primary Scope</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.PrimaryScope %} style="cursor: pointer;" class="control-label font-weight-bold text-danger error-data" {% else %}class="control-label font-weight-bold" {% endif %}>{{data.PrimaryScope}}</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.SecondaryLegCode %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>Secondary Leg Code</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.SecondaryLegCode %} style="cursor: pointer;" class="control-label font-weight-bold text-danger error-data" {% else %}class="control-label font-weight-bold" {% endif %}>{{ data.SecondaryLegCode }}</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.SecondaryLegScope %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>Secondary Leg Scope</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.SecondaryLegScope %} style="cursor: pointer;" class="control-label font-weight-bold text-danger error-data" {% else %}class="control-label font-weight-bold" {% endif %}>{{data.SecondaryLegScope}}</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.CommitmentID %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>CommitmentID</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.CommitmentID %} style="cursor: pointer;" class="control-label font-weight-bold text-danger error-data" {% else %}class="control-label font-weight-bold" {% endif %}>{{ data.CommitmentID }}</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.ClassID %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>Class ID</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.ClassID %} style="cursor: pointer;" class="control-label font-weight-bold text-danger error-data" {% else %}class="control-label font-weight-bold" {% endif %}>{{data.ClassID}}</label>
+    </div>
+  </div>
+  <br />
+  <div class="row">
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.TagDaily %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>Tag Daily</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.TagDaily %} style="cursor: pointer;" class="control-label font-weight-bold text-danger error-data" {% else %}class="control-label font-weight-bold" {% endif %}>{{data.TagDaily}}</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.TagMonthly %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>Tag Monthly</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.TagMonthly %} style="cursor: pointer;" class="control-label font-weight-bold text-danger error-data" {% else %}class="control-label font-weight-bold" {% endif %}>{{data.TagMonthly}}</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.EntityType %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>Entity Type</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.EntityType %} style="cursor: pointer;" class="control-label font-weight-bold text-danger error-data" {% else %}class="control-label font-weight-bold" {% endif %}>{{data.EntityType}}</label>
+    </div>
+    <div class="col-md-3">
+        <label {% if data.ErrorMessages.TrancheID %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>Tranche ID</label>
+      </div>
+      <div class="col-md-3">
+        <label {% if data.ErrorMessages.TrancheID %} style="cursor: pointer;" class="control-label font-weight-bold text-danger error-data" {% else %}class="control-label font-weight-bold" {% endif %}>{{data.TrancheID}}</label>
+      </div>
+  </div>
+  <br />
+  <h5>Portfolio Details</h5>
+  <br />
+  <div class="row">
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.UserPortfolioID %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>User Portfolio ID</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.UserPortfolioID %} style="cursor: pointer;" class="control-label font-weight-bold text-danger error-data" {% else %}class="control-label font-weight-bold" {% endif %}>{{data.UserPortfolioID}}</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.PortfolioCode %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>Portfolio Code</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.PortfolioCode %} style="cursor: pointer;" class="control-label font-weight-bold text-danger error-data" {% else %}class="control-label font-weight-bold" {% endif %}>{{data.PortfolioCode}}</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.PortfolioName %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>Portfolio Name</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.PortfolioName %} style="cursor: pointer;" class="control-label font-weight-bold text-danger error-data" {% else %}class="control-label font-weight-bold" {% endif %}>{{data.PortfolioName}}</label>
+    </div>
+  </div>
+  <br />
+  <h5>Fund Details</h5>
+  <br />
+  <div class="row">
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.PrimaryUserFundID %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>Primary Fund ID</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.PrimaryUserFundID %} style="cursor: pointer;" class="control-label font-weight-bold text-danger error-data" {% else %}class="control-label font-weight-bold" {% endif %}>{{data.PrimaryUserFundID}}</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.PrimaryFundName %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>Primary Fund Name</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.PrimaryFundName %} style="cursor: pointer;" class="control-label font-weight-bold text-danger error-data" {% else %}class="control-label font-weight-bold" {% endif %}>{{data.PrimaryFundName}}</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.PrimaryFundCode %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>Primary Fund Code</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.PrimaryFundCode %} style="cursor: pointer;" class="control-label font-weight-bold text-danger error-data" {% else %}class="control-label font-weight-bold" {% endif %}>{{data.PrimaryFundCode}}</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.PrimaryFundType %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>Primary Fund Type</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.PrimaryFundType %} style="cursor: pointer;" class="control-label font-weight-bold text-danger error-data" {% else %}class="control-label font-weight-bold" {% endif %}>{{data.PrimaryFundType}}</label>
+    </div>
+  </div>
+  
+
+  {% else %}
+  <div class="col-lg-7 mx-auto d-flex justify-content-center flex-column">
+    <!-- <h3 class="text-center">Detail View</h3> -->
+  </div>
+  <a href="/batches/record/view/{{batch.BatchID}}/" class="btn btn-sm  bg-gradient-primary w-10  btn-round mb-0 me-1 mt-2 mt-md-0"><i class="fa fa-backward h-100 icon-class mr-1"></i>  Back</a>
+  <br />
+  <a href="/batches/record/edit/view/{{batch.BatchID}}/{{data.MappingID}}/" class="btn btn-sm  bg-gradient-primary w-10  btn-round mb-0 me-1 mt-2 mt-md-0"><i class="fa fa-pencil h-100 icon-class mr-1"></i>  Edit</a>
+  <h3>{{data.BurgissPortfolioName}}</h3>
+  <br />
+  <div class="row">
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.ClientID %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>Client ID</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.ClientID %}  class="control-label font-weight-bold text-danger" {% else %}  class="control-label font-weight-bold" {% endif %}>{{data.ClientID}}</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.BurgissPortfolioName %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>Burgiss Portfolio Name</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.BurgissPortfolioName %} style="cursor: pointer;" class="control-label font-weight-bold text-danger error-data" {% else %}class="control-label font-weight-bold" {% endif %}>{{data.BurgissPortfolioName}}</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.UploadValuations %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>Upload Valuations</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.UploadValuations %} style="cursor: pointer;" class="control-label font-weight-bold text-danger error-data" {% else %}class="control-label font-weight-bold" {% endif %}>{{data.UploadValuations }}</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.UploadTransactions %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>Upload Transactions</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.UploadTransactions %} style="cursor: pointer;" class="control-label font-weight-bold text-danger error-data" {% else %}class="control-label font-weight-bold" {% endif %}>{{ data.UploadTransactions }}</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.PrimaryScope %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>Primary Scope</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.PrimaryScope %} style="cursor: pointer;" class="control-label font-weight-bold text-danger error-data" {% else %}class="control-label font-weight-bold" {% endif %}>{{ data.PrimaryScope }}</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.EntityType %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>Entity Type</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.EntityType %} style="cursor: pointer;" class="control-label font-weight-bold text-danger error-data" {% else %}class="control-label font-weight-bold" {% endif %}>{{data.EntityType}}</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.EntryType %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>Entry Type</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.EntryType %} style="cursor: pointer;" class="control-label font-weight-bold text-danger error-data" {% else %}class="control-label font-weight-bold" {% endif %}>{{ data.EntryType }}</label>
+    </div>
+    <div class="col-md-3" >
+      <label {% if data.ErrorMessages.CommitmentID %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>Commitment ID</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.CommitmentID %} style="cursor: pointer;" class="control-label font-weight-bold text-danger error-data" {% else %}class="control-label font-weight-bold" {% endif %}>{{data.CommitmentID}}</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.ClassID %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>Class ID</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.ClassID %} style="cursor: pointer;" class="control-label font-weight-bold text-danger error-data" {% else %}class="control-label font-weight-bold" {% endif %}>{{ data.ClassID }}</label>
+      <!-- {% if data.ErrorMessages.ClassID %} <p class="text-danger error-messages">{{data.ErrorMessages.ClassID}}</p> {% endif %} -->
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.TrancheID %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>Tranche ID</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.TrancheID %} style="cursor: pointer;" class="control-label font-weight-bold text-danger error-data" {% else %}class="control-label font-weight-bold" {% endif %}>{{data.TrancheID}}</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.SecondaryLegCode %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>Secondary Leg Code</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.SecondaryLegCode %} style="cursor: pointer;" class="control-label font-weight-bold text-danger error-data" {% else %}class="control-label font-weight-bold" {% endif %}>{{ data.SecondaryLegCode }}</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.SecondaryLegScope %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>Secondary Leg Scope</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.SecondaryLegScope %} style="cursor: pointer;" class="control-label font-weight-bold text-danger error-data" {% else %}class="control-label font-weight-bold" {% endif %}>{{data.SecondaryLegScope}}</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.FundCurrency %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>Fund Currency</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.FundCurrency %} style="cursor: pointer;" class="control-label font-weight-bold text-danger error-data" {% else %}class="control-label font-weight-bold" {% endif %}>{{ data.FundCurrency }}</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.Notes %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>Notes</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.Notes %} style="cursor: pointer;" class="control-label font-weight-bold text-danger error-data" {% else %}class="control-label font-weight-bold" {% endif %}>{{data.Notes}}</label>
+    </div>
+  </div>
+  <br />
+  <h5>Investment Details</h5>
+  <br />
+  <div class="row">
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.InvestmentID %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>Invsetment ID</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.InvestmentID %} style="cursor: pointer;" class="control-label font-weight-bold text-danger error-data" {% else %}class="control-label font-weight-bold" {% endif %}>{{data.InvestmentID}}</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.InvestmentGUID %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>Investment GUID</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.InvestmentGUID %} style="cursor: pointer;" class="control-label font-weight-bold text-danger error-data" {% else %}class="control-label font-weight-bold" {% endif %}>{{data.InvestmentGUID}}</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.InvestmentName %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>Invsetment Name</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.InvestmentName %} style="cursor: pointer;" class="control-label font-weight-bold text-danger error-data" {% else %}class="control-label font-weight-bold" {% endif %}>{{data.InvestmentName}}</label>
+    </div>
+  </div>
+  <br />
+  <h5>Portfolio Details</h5>
+  <br />
+  <div class="row">
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.UserPortfolioID %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>User Portfolio ID</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.UserPortfolioID %} style="cursor: pointer;" class="control-label font-weight-bold text-danger error-data" {% else %}class="control-label font-weight-bold" {% endif %}>{{data.UserPortfolioID}}</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.PortfolioCode %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>Portfolio Code</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.PortfolioCode %} style="cursor: pointer;" class="control-label font-weight-bold text-danger error-data" {% else %}class="control-label font-weight-bold" {% endif %}>{{data.PortfolioCode}}</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.PortfolioName %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>Portfolio Name</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.PortfolioName %} style="cursor: pointer;" class="control-label font-weight-bold text-danger error-data" {% else %}class="control-label font-weight-bold" {% endif %}>{{data.PortfolioName}}</label>
+    </div>
+  </div>
+  <br />
+  <h5>Fund Details</h5>
+  <br />
+  <div class="row">
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.PrimaryUserFundID %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>Primary Fund ID</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.PrimaryUserFundID %} style="cursor: pointer;" class="control-label font-weight-bold text-danger error-data" {% else %}class="control-label font-weight-bold" {% endif %}>{{data.PrimaryUserFundID}}</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.PrimaryFundName %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>Primary Fund Name</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.PrimaryFundName %} style="cursor: pointer;" class="control-label font-weight-bold text-danger error-data" {% else %}class="control-label font-weight-bold" {% endif %}>{{data.PrimaryFundName}}</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.PrimaryFundCode %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>Primary Fund Code</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.PrimaryFundCode %} style="cursor: pointer;" class="control-label font-weight-bold text-danger error-data" {% else %}class="control-label font-weight-bold" {% endif %}>{{data.PrimaryFundCode}}</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.PrimaryFundType %} style="cursor: pointer;" class="control-label font-weight-bolder text-danger error-data" {% else %} class="control-label font-weight-bolder text-secondary"{% endif %}>Primary Fund Type</label>
+    </div>
+    <div class="col-md-3">
+      <label {% if data.ErrorMessages.PrimaryFundType %} style="cursor: pointer;" class="control-label font-weight-bold text-danger error-data" {% else %}class="control-label font-weight-bold" {% endif %}>{{data.PrimaryFundType}}</label>
+    </div>
+  </div>
+  
+  {% endif %}
+  

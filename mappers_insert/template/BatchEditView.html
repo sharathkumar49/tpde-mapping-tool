@@ -1,0 +1,431 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+{% include 'SuccessAlert.html' %}
+<section class="global-section">
+    <div class="container py-4 card">
+        <div class="row card-body">
+            {% if batch.Configuration.ValidationType == 'nt_acc_mapping' %}
+                <form action="/batches/record/update/{{batch.BatchID}}/{{data.MappingID}}/" method="POST">
+                    {% csrf_token %}
+                    <div class="col-lg-7 mx-auto d-flex justify-content-center flex-column">
+                        <h3 class="text-center">Edit View</h3>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label {% if data.ErrorMessages.ClientID %} style="cursor: pointer;"
+                                class="control-label font-weight-bolder text-danger error-data" {% else %}
+                                class="control-label font-weight-bolder text-secondary" {% endif %}>Client ID</label>
+                            <input class="form-control" type="text" value="{{data.ClientID}}" name="ClientID">
+                        </div>
+                        <div class="col-md-6">
+                            <label {% if data.ErrorMessages.Consolidation %} style="cursor: pointer;"
+                                class="control-label font-weight-bolder text-danger error-data" {% else %}
+                                class="control-label font-weight-bolder text-secondary" {% endif %}>Consolidation</label>
+                            <input type="text" class="form-control" value="{{data.Consolidation}}"
+                                name="Consolidation">
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <label {% if data.ErrorMessages.CSecurityId %} style="cursor: pointer;"
+                                class="control-label font-weight-bolder text-danger error-data" {% else %}
+                                class="control-label font-weight-bolder text-secondary" {% endif %}>CSecurityId</label>
+                            <input class="form-control" type="text" value="{{data.CSecurityId }}"
+                                name="CSecurityId">
+                        </div>
+                        <div class="col-md-6">
+                            <label {% if data.ErrorMessages.NTAccountNumber %} style="cursor: pointer;"
+                                class="control-label font-weight-bolder text-danger error-data" {% else %}
+                                class="control-label font-weight-bolder text-secondary" {% endif %}>NTAccountNumber</label>
+                            <input type="text" class="form-control" value="{{ data.NTAccountNumber }}"
+                                name="NTAccountNumber">
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <label {% if data.ErrorMessages.NTAccountName %} style="cursor: pointer;"
+                                class="control-label font-weight-bolder text-danger error-data" {% else %}
+                                class="control-label font-weight-bolder text-secondary" {% endif %}>NT Account Name</label>
+                            <input type="text" class="form-control" value="{{ data.NTAccountName }}" name="NTAccountName">
+                        </div>
+                        <div class="col-md-6">
+                            <label {% if data.ErrorMessages.EntityType %} style="cursor: pointer;"
+                                class="control-label font-weight-bolder text-danger error-data" {% else %}
+                                class="control-label font-weight-bolder text-secondary" {% endif %}>Entity Type</label>
+                            <input type="text" class="form-control" value="{{data.EntityType}}" name="EntityType">
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <label {% if data.ErrorMessages.NSecNum %} style="cursor: pointer;"
+                                class="control-label font-weight-bolder text-danger error-data" {% else %}
+                                class="control-label font-weight-bolder text-secondary" {% endif %}>NSecNum</label>
+                            <input type="text" class="form-control" value="{{ data.NSecNum }}" name="NSecNum">
+                        </div>
+                        <div class="col-md-6">
+                            <label {% if data.ErrorMessages.CommitmentID %} style="cursor: pointer;"
+                                class="control-label font-weight-bolder text-danger error-data" {% else %}
+                                class="control-label font-weight-bolder text-secondary" {% endif %}>Commitment ID</label>
+                            <input type="text" class="form-control" value="{{data.CommitmentID}}" name="CommitmentID">
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <label {% if data.ErrorMessages.ClassID %} style="cursor: pointer;"
+                                class="control-label font-weight-bolder text-danger error-data" {% else %}
+                                class="control-label font-weight-bolder text-secondary" {% endif %}>Class ID</label>
+                            <input type="text" class="form-control" value="{{ data.ClassID }}" name="ClassID">
+                        </div>
+                        <div class="col-md-6">
+                            <label {% if data.ErrorMessages.TrancheID %} style="cursor: pointer;"
+                                class="control-label font-weight-bolder text-danger error-data" {% else %}
+                                class="control-label font-weight-bolder text-secondary" {% endif %}>Tranche ID</label>
+                            <input type="text" class="form-control" value="{{data.TrancheID}}" name="TrancheID">
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <label {% if data.ErrorMessages.SecondaryLegCode %} style="cursor: pointer;"
+                                class="control-label font-weight-bolder text-danger error-data" {% else %}
+                                class="control-label font-weight-bolder text-secondary" {% endif %}>Secondary Leg
+                                Code</label>
+                            <input type="text" class="form-control" value="{{ data.SecondaryLegCode }}"
+                                name="SecondaryLegCode">
+                        </div>
+                        <div class="col-md-6">
+                            <label {% if data.ErrorMessages.SecondaryLegScope %} style="cursor: pointer;"
+                                class="control-label font-weight-bolder text-danger error-data" {% else %}
+                                class="control-label font-weight-bolder text-secondary" {% endif %}>Secondary Leg
+                                Scope</label>
+                            <input type="text" class="form-control" value="{{data.SecondaryLegScope}}"
+                                name="SecondaryLegScope">
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <label {% if data.ErrorMessages.IsSMA %} style="cursor: pointer;"
+                                class="control-label font-weight-bolder text-danger error-data" {% else %}
+                                class="control-label font-weight-bolder text-secondary" {% endif %}>IsSMA</label>
+                            <input class="form-control" type="text" value="{{ data.IsSMA }}" name="IsSMA">
+                        </div>
+                        <div class="col-md-6">
+                            <label {% if data.ErrorMessages.UploadValuationsDaily %} style="cursor: pointer;"
+                                class="control-label font-weight-bolder text-danger error-data" {% else %}
+                                class="control-label font-weight-bolder text-secondary" {% endif %}>Upload Valuations Daily</label>
+                            <input class="form-control" type="text" value="{{ data.UploadValuationsDaily }}" name="UploadValuationsDaily">
+                        </div>
+                    </div>
+                    <!-- <br />
+                <br />
+                <h5>Investment Details</h5>
+                <br /> -->
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <label {% if data.ErrorMessages.UploadTransactionsDaily %} style="cursor: pointer;"
+                                class="control-label font-weight-bolder text-danger error-data" {% else %}
+                                class="control-label font-weight-bolder text-secondary" {% endif %}>Upload Transactions Daily</label>
+                            <input class="form-control" type="text" value="{{ data.UploadTransactionsDaily }}" name="UploadTransactionsDaily">
+                        </div>
+                        <div class="col-md-6">
+                            <label {% if data.ErrorMessages.UploadValuationsMonthly %} style="cursor: pointer;"
+                                class="control-label font-weight-bolder text-danger error-data" {% else %}
+                                class="control-label font-weight-bolder text-secondary" {% endif %}>Upload Transactions Monthly</label>
+                            <input class="form-control" type="text" value="{{ data.UploadValuationsMonthly }}" name="UploadValuationsMonthly">
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <label {% if data.ErrorMessages.PortfolioName %} style="cursor: pointer;"
+                                class="control-label font-weight-bolder text-danger error-data" {% else %}
+                                class="control-label font-weight-bolder text-secondary" {% endif %}>Portfolio Name</label>
+                            <input class="form-control" type="text" value="{{ data.PortfolioName }}" name="PortfolioName">
+                        </div>
+                        <div class="col-md-6">
+                            <label {% if data.ErrorMessages.PortfolioName %} style="cursor: pointer;"
+                                class="control-label font-weight-bolder text-danger error-data" {% else %}
+                                class="control-label font-weight-bolder text-secondary" {% endif %}>Portfolio Name</label>
+                            <input class="form-control" type="text" value="{{ data.PortfolioName }}" name="PortfolioName">
+                        </div>
+                    </div>
+                    <!-- <br />
+                <h5>Portfolio Details</h5>
+                <br /> -->
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <label {% if data.ErrorMessages.TagDaily %} style="cursor: pointer;"
+                                class="control-label font-weight-bolder text-danger error-data" {% else %}
+                                class="control-label font-weight-bolder text-secondary" {% endif %}>Tag Daily</label>
+                            <input class="form-control" type="text" value="{{ data.TagDaily }}"
+                                name="TagDaily">
+                        </div>
+                        <div class="col-md-6">
+                            <label {% if data.ErrorMessages.TagMonthly %} style="cursor: pointer;"
+                                class="control-label font-weight-bolder text-danger error-data" {% else %}
+                                class="control-label font-weight-bolder text-secondary" {% endif %}>Tag Monthly</label>
+                            <input class="form-control" type="text" value="{{ data.TagMonthly }}" name="TagMonthly">
+                        </div>
+                    </div>
+                    <!-- <br />
+                <h5>Fund Details</h5>
+                <br /> -->
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <label {% if data.ErrorMessages.PrimaryFundName %} style="cursor: pointer;"
+                                class="control-label font-weight-bolder text-danger error-data" {% else %}
+                                class="control-label font-weight-bolder text-secondary" {% endif %}>Primary Fund
+                                Name</label>
+                            <input class="form-control" type="text" value="{{ data.PrimaryFundName }}"
+                                name="PrimaryFundName">
+                        </div>
+                        <div class="col-md-6">
+                            <label {% if data.ErrorMessages.PrimaryFundCode %} style="cursor: pointer;"
+                                class="control-label font-weight-bolder text-danger error-data" {% else %}
+                                class="control-label font-weight-bolder text-secondary" {% endif %}>Primary Fund
+                                Code</label>
+                            <input class="form-control" type="text" value="{{ data.PrimaryFundCode }}"
+                                name="PrimaryFundCode">
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        
+                        <div class="col-md-6">
+                            <label {% if data.ErrorMessages.PrimaryFundType %} style="cursor: pointer;"
+                                class="control-label font-weight-bolder text-danger error-data" {% else %}
+                                class="control-label font-weight-bolder text-secondary" {% endif %}>Primary Fund
+                                Type</label>
+                            <input class="form-control" type="text" value="{{ data.PrimaryFundType }}"
+                                name="PrimaryFundType">
+                        </div>
+                        <div class="col-md-6">
+                            <label {% if data.ErrorMessages.PortfolioCode %} style="cursor: pointer;"
+                                class="control-label font-weight-bolder text-danger error-data" {% else %}
+                                class="control-label font-weight-bolder text-secondary" {% endif %}>Portfolio Code</label>
+                            <input class="form-control" type="text" value="{{ data.PortfolioCode }}" name="PortfolioCode">
+                        </div>
+                    </div>
+                    <div class="row mt-5">
+                        <div class="col-md-12">
+                            <button class="btn btn-sm btn-round bg-gradient-warning"><i class="fa fa-save icon-class mr-5"></i> update</button>
+                        </div>
+                    </div>
+                </form>
+            {% else %}
+                <form action="/batches/record/update/{{batch.BatchID}}/{{data.MappingID}}/" method="POST">
+                    {% csrf_token %}
+                    <div class="col-lg-7 mx-auto d-flex justify-content-center flex-column">
+                        <h3 class="text-center">Edit View</h3>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label {% if data.ErrorMessages.ClientID %} style="cursor: pointer;"
+                                class="control-label font-weight-bolder text-danger error-data" {% else %}
+                                class="control-label font-weight-bolder text-secondary" {% endif %}>Client ID</label>
+                            <input class="form-control" type="text" value="{{data.ClientID}}" name="ClientID">
+                        </div>
+                        <div class="col-md-6">
+                            <label {% if data.ErrorMessages.BurgissPortfolioName %} style="cursor: pointer;"
+                                class="control-label font-weight-bolder text-danger error-data" {% else %}
+                                class="control-label font-weight-bolder text-secondary" {% endif %}>Burgiss Portfolio
+                                Name</label>
+                            <input type="text" class="form-control" value="{{data.BurgissPortfolioName}}"
+                                name="BurgissPortfolioName">
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <label {% if data.ErrorMessages.UploadValuations %} style="cursor: pointer;"
+                                class="control-label font-weight-bolder text-danger error-data" {% else %}
+                                class="control-label font-weight-bolder text-secondary" {% endif %}>Upload
+                                Valuations</label>
+                            <input class="form-control" type="text" value="{{data.UploadValuations }}"
+                                name="UploadValuations">
+                        </div>
+                        <div class="col-md-6">
+                            <label {% if data.ErrorMessages.UploadTransactions %} style="cursor: pointer;"
+                                class="control-label font-weight-bolder text-danger error-data" {% else %}
+                                class="control-label font-weight-bolder text-secondary" {% endif %}>Upload
+                                Transactions</label>
+                            <input type="text" class="form-control" value="{{ data.UploadTransactions }}"
+                                name="UploadTransactions">
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <label {% if data.ErrorMessages.PrimaryScope %} style="cursor: pointer;"
+                                class="control-label font-weight-bolder text-danger error-data" {% else %}
+                                class="control-label font-weight-bolder text-secondary" {% endif %}>Primary Scope</label>
+                            <input type="text" class="form-control" value="{{ data.PrimaryScope }}" name="PrimaryScope">
+                        </div>
+                        <div class="col-md-6">
+                            <label {% if data.ErrorMessages.EntityType %} style="cursor: pointer;"
+                                class="control-label font-weight-bolder text-danger error-data" {% else %}
+                                class="control-label font-weight-bolder text-secondary" {% endif %}>Entity Type</label>
+                            <input type="text" class="form-control" value="{{data.EntityType}}" name="EntityType">
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <label {% if data.ErrorMessages.EntryType %} style="cursor: pointer;"
+                                class="control-label font-weight-bolder text-danger error-data" {% else %}
+                                class="control-label font-weight-bolder text-secondary" {% endif %}>Entry Type</label>
+                            <input type="text" class="form-control" value="{{ data.EntryType }}" name="EntryType">
+                        </div>
+                        <div class="col-md-6">
+                            <label {% if data.ErrorMessages.CommitmentID %} style="cursor: pointer;"
+                                class="control-label font-weight-bolder text-danger error-data" {% else %}
+                                class="control-label font-weight-bolder text-secondary" {% endif %}>Commitment ID</label>
+                            <input type="text" class="form-control" value="{{data.CommitmentID}}" name="CommitmentID">
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <label {% if data.ErrorMessages.ClassID %} style="cursor: pointer;"
+                                class="control-label font-weight-bolder text-danger error-data" {% else %}
+                                class="control-label font-weight-bolder text-secondary" {% endif %}>Class ID</label>
+                            <input type="text" class="form-control" value="{{ data.ClassID }}" name="ClassID">
+                        </div>
+                        <div class="col-md-6">
+                            <label {% if data.ErrorMessages.TrancheID %} style="cursor: pointer;"
+                                class="control-label font-weight-bolder text-danger error-data" {% else %}
+                                class="control-label font-weight-bolder text-secondary" {% endif %}>Tranche ID</label>
+                            <input type="text" class="form-control" value="{{data.TrancheID}}" name="TrancheID">
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <label {% if data.ErrorMessages.SecondaryLegCode %} style="cursor: pointer;"
+                                class="control-label font-weight-bolder text-danger error-data" {% else %}
+                                class="control-label font-weight-bolder text-secondary" {% endif %}>Secondary Leg
+                                Code</label>
+                            <input type="text" class="form-control" value="{{ data.SecondaryLegCode }}"
+                                name="SecondaryLegCode">
+                        </div>
+                        <div class="col-md-6">
+                            <label {% if data.ErrorMessages.SecondaryLegScope %} style="cursor: pointer;"
+                                class="control-label font-weight-bolder text-danger error-data" {% else %}
+                                class="control-label font-weight-bolder text-secondary" {% endif %}>Secondary Leg
+                                Scope</label>
+                            <input type="text" class="form-control" value="{{data.SecondaryLegScope}}"
+                                name="SecondaryLegScope">
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <label {% if data.ErrorMessages.FundCurrency %} style="cursor: pointer;"
+                                class="control-label font-weight-bolder text-danger error-data" {% else %}
+                                class="control-label font-weight-bolder text-secondary" {% endif %}>Fund Currency</label>
+                            <input class="form-control" type="text" value="{{ data.FundCurrency }}" name="FundCurrency">
+                        </div>
+                        <div class="col-md-6">
+                            <label {% if data.ErrorMessages.Notes %} style="cursor: pointer;"
+                                class="control-label font-weight-bolder text-danger error-data" {% else %}
+                                class="control-label font-weight-bolder text-secondary" {% endif %}>Notes</label>
+                            <input class="form-control" type="text" value="{{ data.Notes }}" name="Notes">
+                        </div>
+                    </div>
+                    <!-- <br />
+                <br />
+                <h5>Investment Details</h5>
+                <br /> -->
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <label {% if data.ErrorMessages.InvestmentID %} style="cursor: pointer;"
+                                class="control-label font-weight-bolder text-danger error-data" {% else %}
+                                class="control-label font-weight-bolder text-secondary" {% endif %}>Invsetment ID</label>
+                            <input class="form-control" type="text" value="{{ data.InvestmentID }}" name="InvestmentID">
+                        </div>
+                        <div class="col-md-6">
+                            <label {% if data.ErrorMessages.InvestmentGUID %} style="cursor: pointer;"
+                                class="control-label font-weight-bolder text-danger error-data" {% else %}
+                                class="control-label font-weight-bolder text-secondary" {% endif %}>Investment GUID</label>
+                            <input class="form-control" type="text" value="{{ data.InvestmentGUID }}" name="InvestmentGUID">
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <label {% if data.ErrorMessages.InvestmentName %} style="cursor: pointer;"
+                                class="control-label font-weight-bolder text-danger error-data" {% else %}
+                                class="control-label font-weight-bolder text-secondary" {% endif %}>Invsetment Name</label>
+                            <input class="form-control" type="text" value="{{ data.InvestmentName }}" name="InvestmentName">
+                        </div>
+                        <div class="col-md-6">
+                            <label {% if data.ErrorMessages.PortfolioName %} style="cursor: pointer;"
+                                class="control-label font-weight-bolder text-danger error-data" {% else %}
+                                class="control-label font-weight-bolder text-secondary" {% endif %}>Portfolio Name</label>
+                            <input class="form-control" type="text" value="{{ data.PortfolioName }}" name="PortfolioName">
+                        </div>
+                    </div>
+                    <!-- <br />
+                <h5>Portfolio Details</h5>
+                <br /> -->
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <label {% if data.ErrorMessages.UserPortfolioID %} style="cursor: pointer;"
+                                class="control-label font-weight-bolder text-danger error-data" {% else %}
+                                class="control-label font-weight-bolder text-secondary" {% endif %}>User Portfolio
+                                ID</label>
+                            <input class="form-control" type="text" value="{{ data.UserPortfolioID }}"
+                                name="UserPortfolioID">
+                        </div>
+                        <div class="col-md-6">
+                            <label {% if data.ErrorMessages.PortfolioCode %} style="cursor: pointer;"
+                                class="control-label font-weight-bolder text-danger error-data" {% else %}
+                                class="control-label font-weight-bolder text-secondary" {% endif %}>Portfolio Code</label>
+                            <input class="form-control" type="text" value="{{ data.PortfolioCode }}" name="PortfolioCode">
+                        </div>
+                    </div>
+                    <!-- <br />
+                <h5>Fund Details</h5>
+                <br /> -->
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <label {% if data.ErrorMessages.PrimaryUserFundID %} style="cursor: pointer;"
+                                class="control-label font-weight-bolder text-danger error-data" {% else %}
+                                class="control-label font-weight-bolder text-secondary" {% endif %}>Primary Fund ID</label>
+                            <input class="form-control" type="text" value="{{ data.PrimaryUserFundID }}"
+                                name="PrimaryUserFundID">
+                        </div>
+                        <div class="col-md-6">
+                            <label {% if data.ErrorMessages.PrimaryFundName %} style="cursor: pointer;"
+                                class="control-label font-weight-bolder text-danger error-data" {% else %}
+                                class="control-label font-weight-bolder text-secondary" {% endif %}>Primary Fund
+                                Name</label>
+                            <input class="form-control" type="text" value="{{ data.PrimaryFundName }}"
+                                name="PrimaryFundName">
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <label {% if data.ErrorMessages.PrimaryFundCode %} style="cursor: pointer;"
+                                class="control-label font-weight-bolder text-danger error-data" {% else %}
+                                class="control-label font-weight-bolder text-secondary" {% endif %}>Primary Fund
+                                Code</label>
+                            <input class="form-control" type="text" value="{{ data.PrimaryFundCode }}"
+                                name="PrimaryFundCode">
+                        </div>
+                        <div class="col-md-6">
+                            <label {% if data.ErrorMessages.PrimaryFundType %} style="cursor: pointer;"
+                                class="control-label font-weight-bolder text-danger error-data" {% else %}
+                                class="control-label font-weight-bolder text-secondary" {% endif %}>Primary Fund
+                                Type</label>
+                            <input class="form-control" type="text" value="{{ data.PrimaryFundType }}"
+                                name="PrimaryFundType">
+                        </div>
+                    </div>
+                    <div class="row mt-5">
+                        <div class="col-md-12">
+                            <button class="btn btn-sm btn-round bg-gradient-warning"><i class="fa fa-save icon-class mr-5"></i> update</button>
+                            <button type="button" class="btn btn-sm btn-round bg-gradient-secondary" id="clear-btn"><i class="fa fa-times icon-class mr-5"></i> clear</button>
+                        </div>
+                    </div>
+                </form>
+            {% endif %}
+            
+        </div>
+    </div>
+</section>
+
+<!-- <script src="{% static 'js/custom/batch_edit.js' %}"></script> -->
+
+{% endblock %}

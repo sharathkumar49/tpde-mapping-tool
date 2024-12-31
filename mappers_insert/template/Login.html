@@ -1,0 +1,91 @@
+
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+
+<section>
+    <div class="page-header min-vh-100">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto">
+            <div class="card card-plain">
+              {% if screen_type == 'FirstLogin' %}
+              <div class="card-header pb-0 text-left" style="background-color: inherit;">
+                <h4 class="font-weight-bolder">Change password</h4>
+              </div>
+              <div class="card-body">
+                {% if not status %}
+                  <div class="text-danger">{{error}}</div>
+                {% endif %}
+                <form role="form" method="POST" action="/user/password/update/" id="password-form">
+                  {% csrf_token %}
+                  <div class="mb-3">
+                    <input type="password" id="password" name="password" class="form-control form-control-lg" placeholder="password" aria-label="Email" aria-describedby="email-addon" autofocus required>
+                  </div>
+                  <div class="mb-3">
+                    <input type="password" id="confirm_password" name="confirm_password" class="form-control form-control-lg" placeholder="confirm password" aria-label="Password" aria-describedby="password-addon" required>
+                  </div> 
+                  <input type="hidden" name="role" value="admin">
+                  <div class="text-center">
+                    <button class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">Submit</button>
+                  </div>
+                  </form>
+                <!-- <form role="form" method="POST" action="/user/login/" id="staff-form">
+                  {% csrf_token %}
+                  <input type="hidden" name="role" value="staff">
+                  <div class="text-center">
+                    <button class="btn btn-lg btn-outline-primary btn-lg w-100 mt-4 mb-0">Sign in as STAFF</button>
+                  </div>
+                </form> -->
+              </div>
+              {% else %}
+              <div class="card-header pb-0 text-left" style="background-color: inherit;">
+                <h4 class="font-weight-bolder">Sign In</h4>
+                <p class="mb-0">Enter your email and password to sign in</p>
+              </div>
+              <div class="card-body">
+                {% if not status %}
+                  <div class="text-danger">{{error}}</div>
+                {% endif %}
+                <form role="form" method="POST" action="/user/login/" id="login-form">
+                  {% csrf_token %}
+                  <div class="mb-3">
+                    <input type="text" id="username" name="username" class="form-control form-control-lg" placeholder="Email" aria-label="Email" aria-describedby="email-addon" autofocus required>
+                  </div>
+                  <div class="mb-3">
+                    <input type="password" id="password" name="password" class="form-control form-control-lg" placeholder="Password" aria-label="Password" aria-describedby="password-addon" required>
+                  </div> 
+                  <input type="hidden" name="role" value="admin">
+                  <div class="text-center">
+                    <button class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">Sign in</button>
+                  </div>
+                  </form>
+                <!-- <form role="form" method="POST" action="/user/login/" id="staff-form">
+                  {% csrf_token %}
+                  <input type="hidden" name="role" value="staff">
+                  <div class="text-center">
+                    <button class="btn btn-lg btn-outline-primary btn-lg w-100 mt-4 mb-0">Sign in as STAFF</button>
+                  </div>
+                </form> -->
+              </div>
+              {% endif %}
+              
+              
+            </div>
+          </div>
+          <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
+            <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center">
+              <img src="{% static '/img/shapes/pattern-lines.svg' %}" alt="pattern-lines" class="position-absolute opacity-4 start-0">
+              <div class="position-relative">
+                <img class="max-width-500 w-100 position-relative z-index-2" src="{% static 'img/logos/msci_logo.png' %}">
+              </div>
+              <!-- <h4 class="mt-5 text-white font-weight-bolder">"Attention is the new currency"</h4>
+              <p class="text-white">The more effortless the writing looks, the more effort the writer actually put into the process.</p> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script src="{% static 'js/custom/login.js' %}"></script>
+{% endblock %}

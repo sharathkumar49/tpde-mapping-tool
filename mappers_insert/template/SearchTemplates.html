@@ -1,0 +1,78 @@
+<div class="col-lg-12 mx-auto d-flex justify-content-center flex-column">
+    <h3 class="text-center">Export CSV Templates</h3>
+    <form role="form" id="contact-form" class="mt-3" method="post" autocomplete="off" action="/batches/csv/template/list/">
+      {% csrf_token %}
+        <div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>Feed Name</label>
+                <div class="input-group mb-4">
+                    <select class="form-control" placeholder="" name="feed_id">
+                        <option value="">--Choose Feed Name--</option>
+                        {% for feed in feeds %}
+                            <option value="{{feed.FeedID}}" {% if feed.FeedID|stringformat:'s' == feed_id|stringformat:'s' %} selected {% endif %}>{{feed.Name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label>Feed Category</label>
+                <div class="input-group mb-4">
+                    <select class="form-control" placeholder="" name="feed_category_id">
+                        <option value="">--Choose Feed Category--</option>
+                        {% for category in categories %}
+                          <option value="{{category.FeedCategoryID}}" {% if category.FeedCategoryID|stringformat:'s' == feed_category_id|stringformat:'s' %} selected {% endif %}>{{category.Name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        
+            <div class="col-md-4">
+                <br/>
+                <button type="submit" class="btn bg-gradient-dark w-50"><i class="fa fa-search"></i> Search</button>
+                </div>
+        </div>
+       
+      
+  </div>
+        </div>
+        </div>
+    </form>
+    <br/>
+    <h6 class="text-center">Templates</h6>
+    <div class="table-responsive">
+        <table class="datatable table align-items-center mb-0 text-center" id="template-table">
+          <thead>
+            <tr>
+              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-10">S.No</th>
+              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Feed Name</th>
+              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Feed Category</th>
+              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
+            </tr>
+          </thead>
+          <tbody>
+              {% for template in templates %}
+                <tr>
+                  <td class="text-secondary text-xs font-weight-bold">{{forloop.counter}}</td>
+                  <td class="text-secondary text-xs font-weight-bold">{{template.FeedID.Name}}</td>
+                  <td class="text-secondary text-xs font-weight-bold">{{template.FeedCategoryID.Name}}</td>
+                  <td>{% if template.TemplateHeaders %}<a class="text-primary" href="/batches/csv/template/download/{{template.TemplateID}}"><i class="fa fa-download"></i></a>{% endif %}</td>
+                </tr>
+              {% endfor %}
+          </tbody>
+          <!-- <tfoot>
+            <tr>
+              <td colspan="5" class="tfoot_class text-danger">
+                <br/>
+                  <a class="btn btn-sm btn-outline-primary mb-0" href="/batches"><i class="fa fa-angle-double-right"></i><span> View more</span></a>
+              </td>
+            </tr>
+            <div class="row">
+              <div class="col-md-12">
+                <i class="fa fa-forward"></i><p> View more</p>
+              </div>
+            </div>
+          </tfoot> -->
+        </table>
+      </div>
+    </div>

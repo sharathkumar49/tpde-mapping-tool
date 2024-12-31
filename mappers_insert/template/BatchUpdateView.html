@@ -1,0 +1,166 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+{% include 'SuccessAlert.html' %}
+{% include 'ConfirmAlert.html' %}
+<section class="global-section">
+    <div class="container py-4 card">
+        <div class="row card-body">
+            <div class="col-lg-7 mx-auto d-flex justify-content-center flex-column">
+                <h3 class="text-center">Record Seach View</h3>
+            </div>
+            {% if screen_type == 'search_view' %}
+           
+            <div class="col-lg-12 mx-auto d-flex justify-content-center flex-column">
+              <form role="form" id="data-form" method="post" action="/batches/batch/record/search/" autocomplete="off" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <div class="row">
+                      <div class="col-md-3">
+                          <label>Feed Name</label><span class="text-danger"> *</span>
+                          <div class="input-group mb-4">
+                              <select class="form-control" placeholder="" name="FeedID" required>
+                                  <option value="">--Choose Feed--</option>
+                                  {% for fd in feed %}
+                                      <option value="{{fd.FeedID}}">{{fd.Name}}</option>
+                                  {% endfor %}
+                              </select>
+                          </div>
+                      </div>
+                      <div class="col-md-3">
+                          <label>Feed Category</label><span class="text-danger"> *</span>
+                          <div class="input-group mb-4">
+                              <select class="form-control" placeholder="" name="FeedCategoryID" required>
+                                  <option value="">--Choose Feed Category--</option>
+                                  {% for fc in category %}
+                                      <option value="{{fc.FeedCategoryID}}">{{fc.Name}}</option>
+                                  {% endfor %}
+                              </select>
+                          </div>
+                      </div>
+                     
+                      <div class="col-md-3">
+                          <br/>
+                          <button type="submit" class="btn bg-gradient-dark w-100"><i class="fa fa-upload"></i>  Upload</button>
+                          </div>
+                      
+                  </div>
+                      
+                  </div>
+              </form>
+            {% else %}
+            
+            <div class="row">
+               
+              <div class="col-md-6">
+                <form action="/batches/batch/record/update/{{batch.BatchID}}/" method="POST" id="update-form">
+                  {% csrf_token %}
+                  <input type="hidden" name="record_ids" id="record-ids" value="{{data}}">
+                  <input type="hidden" name="batch_no" value="{{batch.BatchNo}}">
+                  <input type="hidden" name="update_type" value="{{update_type}}">
+                  {% if update_type == 'add' %}
+                  <button id="add-btn" type="button" class="btn btn-primary" style="float: right;margin-right: 10px;"><i class="icon-class fa fa-plus-circle"></i>Update</button>
+                  {% else %}
+                  <button id="remove-btn" type="button" class="btn btn-danger" style="float: right;margin-right: 10px;"><i class="icon-class fa fa-times-circle"></i>Remove</button>
+                  {% endif %}
+                </form>
+               
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table align-items-center mb-0 text-center datatable" id="batch_record_view">
+                <thead class="bg-secondary">
+                  <tr class="text-white">
+                    {% if update_type == 'remove' %}
+                        <th><input type="checkbox" id="select-all"></th>
+                    {% else %}
+                        <th></th>
+                    {% endif %}
+                    
+                    <th class="text-uppercase text-center text-white text-xxs font-weight-bolder opacity-7">Client ID</th>
+                    <!-- <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7 ps-2">MappingID</th> -->
+                    <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">Burgiss Portfolio
+                      Name</th>
+                    <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">Upload Valuations
+                    </th>
+                    <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">Upload Transactions
+                    </th>
+                    <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">Investment Name</th>
+                    <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">Investment GUID</th>
+                    <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">Investment ID</th>
+                    <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">User Portfolio ID
+                    </th>
+                    <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">Portfolio Code</th>
+                    <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">Portfolio Name</th>
+                  </tr>
+                  <tr class="text-white" id="input-search" style="background-color: white;">
+                    <td></td>
+                    <th class="text-uppercase text-center text-white text-xxs font-weight-bolder opacity-7">Client ID</th>
+                    <!-- <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7 ps-2">MappingID</th> -->
+                    <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">Burgiss Portfolio
+                      Name</th>
+                    <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">Upload Valuations
+                    </th>
+                    <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">Upload Transactions
+                    </th>
+                    <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">Investment Name</th>
+                    <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">Investment GUID</th>
+                    <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">Investment ID</th>
+                    <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">User Portfolio ID
+                    </th>
+                    <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">Portfolio Code</th>
+                    <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">Portfolio Name</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for data in data %}
+                  <tr {% if data.Error %} class="text-danger" {% else %} class="text-secondary" {% endif %}
+                     data-id="{{data.MappingID}}"
+                    style="cursor:pointer">
+                        <td><input type="checkbox" class="select-record"></td>
+                    <td class="align-middle text-right text-sm">
+                      <span class="text-xs font-weight-bold">{{data.ClientID}}</span>
+                    </td>
+                    <!-- <td class="align-middle text-right text-sm">
+                                <span class="text-secondary text-xs font-weight-bold">{{data.MappingID}}</span>
+                              </td> -->
+                    <td class="text-sm">
+                      <span class="text-xs font-weight-bold text-left ml-0">{{data.BurgissPortfolioName}}</span>
+                    </td>
+                    <td class="align-middle text-right text-sm">
+                      <span class="text-xs font-weight-bold">{{data.UploadValuations }}</span>
+                    </td>
+                    <td class="align-middle text-right text-sm">
+                      <span class=" text-xs font-weight-bold">{{data.UploadTransactions}}</span>
+                    </td>
+                    <td class="align-middle text-left text-sm">
+                      <span class="text-xs font-weight-bold">{{data.InvestmentName}}</span>
+                    </td>
+                    <td class="align-middle text-right text-sm">
+                      <span class="text-xs font-weight-bold">{{data.InvestmentGUID}}</span>
+                    </td>
+                    <td class="align-middle text-right text-sm">
+                      <span class="text-xs font-weight-bold">{{data.InvestmentID}}</span>
+                    </td>
+                    <td class="align-middle text-right text-sm">
+                      <span class="text-xs font-weight-bold">{{data.UserPortfolioID}}</span>
+                    </td>
+                    <td class="align-middle text-right text-sm">
+                      <span class="text-xs font-weight-bold">{{data.PortfolioCode}}</span>
+                    </td>
+                    <td class="align-middle text-left text-sm">
+                      <span class="text-xs font-weight-bold">{{data.PortfolioName}}</span>
+                    </td>
+        
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+
+<script src="{% static 'js/custom/batch_update_view.js' %}"></script>
+
+{% endblock %}

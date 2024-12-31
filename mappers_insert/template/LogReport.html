@@ -1,0 +1,96 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+{% include 'WarningAlert.html' %}
+{% include 'SuccessAlert.html' %}
+<section class="global-section">
+    <div class="container py-4 card">
+        <div class="row card-body">
+            <div class="col-lg-12 mx-auto d-flex justify-content-center flex-column">
+                <h3 class="text-center">Log Report</h3>
+                <form role="form" id="data-form" method="post" action="/batches/data/insert/" autocomplete="off"
+                    enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Email</label><span class="text-danger"> *</span>
+                            <div class="input-group mb-4">
+                                <input type="text" id="email" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Reference Number</label><span class="text-danger"> *</span>
+                            <div class="input-group mb-4">
+                                <input type="text" id="reference_no" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <br />
+                            <button type="submit" class="btn bg-gradient-dark w-100"><i class="fa fa-search"></i>
+                                Search</button>
+                        </div>
+                    </form>
+                    </div>
+                    <div class="table-responsive hide" id="log-report-div">
+                        <table class="table table-bordered table-striped" id="log-table">
+                            <thead>
+                                <tr>
+                                    <th>LogType</th>
+                                    <th>LogMessage</th>
+                                    <th>LogDate</th>
+                                    <th>LogIP</th>
+                                    <th>ReferenceID</th>
+                                    <th>RequestURL</th>
+                                    <th>RequestData</th>
+                                    <th>ResponseData</th>
+                                    <th>User</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+            </div>
+            
+        </div>
+
+    </div>
+    </div>
+</section>
+<script>
+    $(document).ready(function () {
+        $('#log-report-div').hide()
+        $('#data-form').submit(function (e) {
+            e.preventDefault();
+            var reference_no = $('#reference_no').val();
+            $.ajax({
+                url: '/reports/logs/',
+                type: 'POST',
+                data: {
+                    'reference_no': reference_no,
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+                success: function (data) {
+                    console.log(data)
+                    $('#log-table tbody').html('')
+                    var logs = data.logs;
+                    for (var i = 0; i < logs.length; i++) {
+                        var log = logs[i];
+                        console.log(log)
+                        $('#log-table tbody').append('<tr><td>' + log.LogType + '</td><td>' + log.LogMessage + '</td><td>' +
+                            log.LogDate + '</td><td>' + log.LogIP + '</td><td>' + log.ReferenceID + '</td><td>' +
+                            log.RequestURL + '</td><td>' + log.RequestData + '</td><td>' + log.ResponseData + '</td><td>' +
+                            log.User.email + '</td></tr>');
+                    }
+                    $('#log-table').dataTable();
+                    $('#log-report-div').show();
+                }
+            });
+        });
+    });
+</script>
+
+<!-- <script src="{% static 'js/custom/data_upload.js' %}"></script> -->
+
+{% endblock %}
